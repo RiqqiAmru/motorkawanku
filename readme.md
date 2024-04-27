@@ -58,10 +58,12 @@ untuk menampilkan data-data kawasan kumuh yang ada di kota pekalongan, berdasark
 - pelajari data investasi yang diinputkan oleh kelurahan
 - data KMZ kebanyakan kode, pelajari lagi
 - ambil sebagian UI dari sikaper -> apakah harus responsif?
+- buat object json yang effisien untuk data R0
 
 # TODO APP
 
 - program frontend untuk membaca data excel
+-
 
 # 2 PILIHAN
 

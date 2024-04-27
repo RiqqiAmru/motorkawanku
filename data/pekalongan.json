@@ -1,0 +1,66 @@
+{
+  "kota": "KOTA PEKALONGAN",
+  "provinsi": "JAWA TENGAH",
+  "sk": "SK Nomor 430/1131 Tahun 2020",
+  "tahun": [
+    {
+      "tahun": 2020,
+      "luas-kumuh": {
+        "awal": 440.7,
+        "akhir": 332.15
+      },
+      "jumlah-lokasi": {
+        "awal": 349,
+        "akhir": 249
+      },
+      "lokasi": [
+        {
+          "lokasi": "PODOSUGIH",
+          "wilayah": "Pekalongan Barat",
+          "jumlah-rt-rw": 8,
+          "luas-kumuh": {
+            "awal": 12.21,
+            "akhir": 8.16
+          },
+          "skor-kumuh": {
+            "awal": 15,
+            "akhir": 15
+          },
+          "tingkat-kumuh": "tidak kumuh",
+          "aspek-penyebab-kumuh": "kondisi proteksi kebakaran",
+          "jumlah-bangunan": 430,
+          "jumlah-penduduk": 2012,
+          "jumlah-kk": 596,
+          "panjang-jalan-ideal": 32848,
+          "panjang-drainase-ideal": 38176,
+          "aspek-kekumuhan": [
+            {
+              "1": {
+                "a": {
+                  "volume": 326,
+                  "prosen": 75.81,
+                  "nilai": 3
+                }
+              }
+            }
+          ],
+          "rt-rw": [
+            {
+              "rt-rw": "RT001-RW002",
+              "luas-kumuh": {
+                "awal": 1.46,
+                "akhir": 1.46
+              },
+              "skor-kumuh": {
+                "awal": 16,
+                "akhir": 16
+              },
+              "tingkat-kumuh": "kumuh ringan",
+              "aspek-penyebab-kumuh": "kondisi pengelolaan persampahan"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

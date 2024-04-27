@@ -1,0 +1,79 @@
+{
+  "aspek kekumuhan": {
+    "1.kondisi-bangunan-gedung": {
+      "a .ketidakteraturan bangunan": {
+        "satuan": "unit"
+      },
+      "b. kepadatan bangunan": {
+        "satuan": "Ha"
+      },
+      "c . ketidaksesuaian dengan persy teknis pembangunan": {
+        "satuan": "unit"
+      },
+      "rata-rata": "persen"
+    },
+    "2. kondisi jalan lingkungan": {
+      "a. cakupan pelayanan jalan lingkungan": {
+        "satuan": "meter"
+      },
+      "b. kualitas permukaan jalan  lingkungan": {
+        "satuan": "meter"
+      },
+      "rata-rata": "persen"
+    },
+    "3. kondisi penyediaan air minum": {
+      "a. ketersediaan akses aman air minum": {
+        "satuan": "KK"
+      },
+      "b. tidak terpenuhinya kebutuhan air minum": {
+        "satuan": "KK"
+      },
+      "rata-rata": "persen"
+    },
+    "4. kondisi drainase lingkungan": {
+      "a. ketidakmampuan mengalirkan limpasan air": {
+        "satuan": "Ha"
+      },
+      "b. ketidaktersediaan drainase": {
+        "satuan": "meter"
+      },
+      "c. kualitas konstruksi drainase": {
+        "satuan": "meter"
+      },
+      "rata-rata": "persen"
+    },
+    "5. kondisi pengelolaan air limbah": {
+      "a. sistem pengelolaan air limbah sesuai standar teknis": {
+        "satuan": "KK"
+      },
+      "b. Prasarana dan Sarana Pengelolaan Air Limbah Tidak Sesuai dengan Persyaratan Teknis": {
+        "satuan": "KK"
+      },
+      "rata-rata": "persen"
+    },
+    "6. kondisi pengelolaan persampahan": {
+      "a. Prasarana dan Sarana Persampahan Tidak Sesuai dengan persyaratan Teknis": {
+        "satuan": "KK"
+      },
+      "b. Sistem Pengelolaan Persampahan yang tidak sesuai Standar Teknis": {
+        "satuan": "KK"
+      },
+      "rata-rata": "persen"
+    },
+    "7. kondisi proteksi kebakaran": {
+      "a. Ketidaktersediaan Prasarana Proteksi Kebakaran": {
+        "satuan": "unit"
+      },
+      "b. Ketidaktersediaan Sarana Proteksi Kebakaran": {
+        "satuan": "unit"
+      },
+      "rata-rata": "persen"
+    },
+    "batas ambang": {
+      "60-80": "kumuh berat",
+      "38-59": "kumuh sedang",
+      "16-37": "kumuh ringan",
+      "0-15": "tidak kumuh"
+    }
+  }
+}

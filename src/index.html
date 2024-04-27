@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Motor Kawanku</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <div class="boxed_wrapper">
+      <!-- Page Title -->
+      <section
+        class="page-title centred"
+        style="background-image: url(); padding: 25px 0px"
+      >
+        <div class="auto-container">
+          <div class="content-box text-center">
+            <div class="title">
+              <h1>Motor Kawanku</h1>
+              <p class="fw-semibold">Cek Kawasan Kumuh Kota Pekalongan</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- End Page Title -->
+
+      <!-- Section Deskripsi Start -->
+      <section class="data-section">
+        <div class="container">
+          <style>
+            .table td,
+            .table th {
+              vertical-align: middle !important;
+            }
+          </style>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <table class="table table-bordered table-sm">
+                        <tbody>
+                          <tr>
+                            <th>Provinsi</th>
+                            <td id="provinsi"></td>
+                          </tr>
+                          <tr>
+                            <th>Kabupaten</th>
+                            <td id="kota"></td>
+                          </tr>
+                          <tr>
+                            <th>Kecamatan</th>
+                            <td id="kecamatan"></td>
+                          </tr>
+                          <tr>
+                            <th>Kelurahan</th>
+
+                            <td>
+                              <ol class="pl-3 mb-0" id="kelurahan"></ol>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>Wilayah RT/RW</th>
+                            <td>
+                              <ol class="pl-3 mb-0" id="rtrw"></ol>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="col-md-6">
+                      <table class="table table-bordered table-sm">
+                        <tbody>
+                          <tr>
+                            <td style="width: 300px">Luas Verifikasi (Ha)</td>
+                            <td id="luasVerifikasi"></td>
+                          </tr>
+                          <tr>
+                            <td>Jumlah Bangunan (Unit)</td>
+                            <td id="jumlahBangunan"></td>
+                          </tr>
+                          <tr>
+                            <td>Jumlah Penduduk (jiwa)</td>
+                            <td id="jumlahPenduduk"></td>
+                          </tr>
+                          <tr>
+                            <td>Jumlah KK (kk)</td>
+                            <td id="jumlahKK"></td>
+                          </tr>
+                          <!-- <tr>
+                            <td>Panjang Jalan Lingkungan Ideal (m)</td>
+                            <td id="panjangJalanIdeal"></td>
+                          </tr>
+                          <tr>
+                            <td>Panjang Drainase Lingkungan Ideal (m)</td>
+                            <td id="panjangDrainaseIdeal"></td>
+                          </tr> -->
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="bungkus" id="div_kumuh_awal">
+                    <table class="table table-bordered table-sm">
+                      <tbody>
+                        <tr class="text-center bg-primary1">
+                          <th style="width: 200px">ASPEK</th>
+                          <th style="width: 250px">KRITERIA</th>
+                          <th>VOLUME</th>
+                          <th>SATUAN</th>
+                          <th>PROSEN (%)</th>
+                          <th>NILAI</th>
+                        </tr>
+                        <tr data-id_aspek="1">
+                          <th rowspan="3">1. Kondisi Bangunan Gedung</th>
+                          <td style="font-weight: 600 !important">
+                            a. Ketidakteraturan Bangunan
+                          </td>
+                          <td class="text-center" id="1av"></td>
+                          <td class="text-center">Unit</td>
+                          <td class="text-center" id="1ap"></td>
+                          <td class="text-center" id="1an"></td>
+                        </tr>
+                        <tr data-id_aspek="2">
+                          <td style="font-weight: 600 !important">
+                            b. Kepadatan Bangunan
+                          </td>
+                          <td class="text-center" id="1bv"></td>
+                          <td class="text-center">Ha</td>
+                          <td class="text-center" id="1bp"></td>
+                          <td class="text-center" id="1bn"></td>
+                        </tr>
+                        <tr data-id_aspek="3">
+                          <td style="font-weight: 600 !important">
+                            c. Ketidaksesuaian dengan Persy Teknis Bangunan
+                          </td>
+                          <td class="text-center" id="1cv"></td>
+                          <td class="text-center">Unit</td>
+                          <td class="text-center" id="1cp"></td>
+                          <td class="text-center" id="1cn"></td>
+                        </tr>
+                        <tr class="bg-birumuda" id="biru">
+                          <th colspan="4">Rata-rata Kondisi Bangunan Gedung</th>
+                          <th
+                            class="text-center"
+                            style="background-color: #ffbb05"
+                            id="1r"
+                          >
+                            %
+                          </th>
+                          <th></th>
+                        </tr>
+                        <tr data-id_aspek="4">
+                          <th rowspan="2">2. Kondisi Jalan Lingkungan</th>
+                          <td style="font-weight: 600 !important">
+                            a. Cakupan Pelayanan Jalan Lingkungan
+                          </td>
+                          <td class="text-center" id="2av"></td>
+                          <td class="text-center">Meter</td>
+                          <td class="text-center" id="2ap"></td>
+                          <td class="text-center" id="2an"></td>
+                        </tr>
+                        <tr data-id_aspek="5">
+                          <td style="font-weight: 600 !important">
+                            b. Kualitas Permukaan Jalan lingkungan
+                          </td>
+                          <td class="text-center" id="2bv"></td>
+                          <td class="text-center">Meter</td>
+                          <td class="text-center" id="2bp"></td>
+                          <td class="text-center" id="2bn"></td>
+                        </tr>
+                        <tr style="background-color: #05fff3">
+                          <th colspan="4">
+                            Rata-rata Kondisi Jalan Lingkungan
+                          </th>
+                          <th
+                            class="text-center"
+                            style="background-color: #ffbb05"
+                            id="2r"
+                          ></th>
+                          <th></th>
+                        </tr>
+                        <tr data-id_aspek="6">
+                          <th rowspan="2">3. Kondisi Penyediaan Air Minum</th>
+                          <td style="font-weight: 600 !important">
+                            a. Ketersediaan Akses Aman Air Minum
+                          </td>
+                          <td class="text-center" id="3av"></td>
+                          <td class="text-center">KK</td>
+                          <td class="text-center" id="3ap"></td>
+                          <td class="text-center" id="3an"></td>
+                        </tr>
+                        <tr data-id_aspek="7">
+                          <td style="font-weight: 600 !important">
+                            b. Tidak terpenuhinya Kebutuhan Air Minum
+                          </td>
+                          <td class="text-center" id="3bv"></td>
+                          <td class="text-center">KK</td>
+                          <td class="text-center" id="3bp"></td>
+                          <td class="text-center" id="3bn"></td>
+                        </tr>
+                        <tr style="background-color: #05fff3">
+                          <th colspan="4">
+                            Rata-rata Kondisi Penyediaan Air Minum
+                          </th>
+                          <th
+                            class="text-center"
+                            style="background-color: #ffbb05"
+                            id="3r"
+                          >
+                            %
+                          </th>
+                          <th></th>
+                        </tr>
+                        <tr data-id_aspek="8">
+                          <th rowspan="3">4. Kondisi Drainase Lingkungan</th>
+                          <td style="font-weight: 600 !important">
+                            a. Ketidakmampuan Mengalirkan Limpasan Air
+                          </td>
+                          <td class="text-center" id="4av"></td>
+                          <td class="text-center">Ha</td>
+                          <td class="text-center" id="4ap"></td>
+                          <td class="text-center" id="4an"></td>
+                        </tr>
+                        <tr data-id_aspek="9">
+                          <td style="font-weight: 600 !important">
+                            b. Ketidaktersediaan Drainase
+                          </td>
+                          <td class="text-center" id="4bv"></td>
+                          <td class="text-center">Meter</td>
+                          <td class="text-center" id="4bp"></td>
+                          <td class="text-center" id="4bn"></td>
+                        </tr>
+                        <tr data-id_aspek="10">
+                          <td style="font-weight: 600 !important">
+                            c. Kualitas Konstruksi Drainase
+                          </td>
+                          <td class="text-center" id="4cv"></td>
+                          <td class="text-center">Meter</td>
+                          <td class="text-center" id="4cp"></td>
+                          <td class="text-center" id="4cn"></td>
+                        </tr>
+                        <tr style="background-color: #05fff3">
+                          <th colspan="4">
+                            Rata-rata Kondisi Drainase Lingkungan
+                          </th>
+                          <th
+                            class="text-center"
+                            style="background-color: #ffbb05"
+                            id="4r"
+                          >
+                            %
+                          </th>
+                          <th></th>
+                        </tr>
+                        <tr data-id_aspek="11">
+                          <th rowspan="2">5. Kondisi Pengelolaan Air Limbah</th>
+                          <td style="font-weight: 600 !important">
+                            a. Sistem Pengelolaan Air Limbah Tidak Sesuai
+                            Standar Teknis
+                          </td>
+                          <td class="text-center" id="5av"></td>
+                          <td class="text-center">KK</td>
+                          <td class="text-center" id="5ap"></td>
+                          <td class="text-center" id="5an"></td>
+                        </tr>
+                        <tr data-id_aspek="12">
+                          <td style="font-weight: 600 !important">
+                            b. Prasarana dan Sarana Pengelolaan Air Limbah Tidak
+                            Sesuai dengan Persyaratan Teknis
+                          </td>
+                          <td class="text-center" id="5bv"></td>
+                          <td class="text-center">KK</td>
+                          <td class="text-center" id="5bp"></td>
+                          <td class="text-center" id="5bn"></td>
+                        </tr>
+                        <tr style="background-color: #05fff3">
+                          <th colspan="4">
+                            Rata-rata Kondisi Pengelolaan Air Limbah
+                          </th>
+                          <th
+                            class="text-center"
+                            style="background-color: #ffbb05"
+                            id="5r"
+                          >
+                            %
+                          </th>
+                          <th></th>
+                        </tr>
+                        <tr data-id_aspek="13">
+                          <th rowspan="2">
+                            6. Kondisi Pengelolaan Persampahan
+                          </th>
+                          <td style="font-weight: 600 !important">
+                            a. Prasarana dan Sarana Persampahan Tidak Sesuai
+                            dengan persyaratan Teknis
+                          </td>
+                          <td class="text-center" id="6av"></td>
+                          <td class="text-center">KK</td>
+                          <td class="text-center" id="6ap"></td>
+                          <td class="text-center" id="6an"></td>
+                        </tr>
+                        <tr data-id_aspek="14">
+                          <td style="font-weight: 600 !important">
+                            b. Sistem Pengelolaan Persampahan yang tidak sesuai
+                            Standar Teknis
+                          </td>
+                          <td class="text-center" id="6bv"></td>
+                          <td class="text-center">KK</td>
+                          <td class="text-center" id="6bp"></td>
+                          <td class="text-center" id="6bn"></td>
+                        </tr>
+                        <tr style="background-color: #05fff3">
+                          <th colspan="4">
+                            Rata-rata Kondisi Pengelolaan Persampahan
+                          </th>
+                          <th
+                            class="text-center"
+                            style="background-color: #ffbb05"
+                            id="6r"
+                          >
+                            %
+                          </th>
+                          <th></th>
+                        </tr>
+                        <tr data-id_aspek="15">
+                          <th rowspan="2">7. Kondisi Proteksi Kebakaran</th>
+                          <td style="font-weight: 600 !important">
+                            a. Ketidaktersediaan Prasarana Proteksi Kebakaran
+                          </td>
+                          <td class="text-center" id="7av"></td>
+                          <td class="text-center">Unit</td>
+                          <td class="text-center" id="7ap"></td>
+                          <td class="text-center" id="7an"></td>
+                        </tr>
+                        <tr data-id_aspek="16">
+                          <td style="font-weight: 600 !important">
+                            b. Ketidaktersediaan Sarana Proteksi Kebakaran
+                          </td>
+                          <td class="text-center" id="7bv"></td>
+                          <td class="text-center">Unit</td>
+                          <td class="text-center" id="7bp"></td>
+                          <td class="text-center" id="7bn"></td>
+                        </tr>
+                        <tr style="background-color: #05fff3">
+                          <th colspan="4">
+                            Rata-rata Kondisi Proteksi Kebakaran
+                          </th>
+                          <th
+                            class="text-center"
+                            style="background-color: #ffbb05"
+                            id="7r"
+                          >
+                            %
+                          </th>
+                          <th></th>
+                        </tr>
+                      </tbody>
+                      <tfoot class="fw-600 bg-soft-secondary">
+                        <tr>
+                          <td class="text-center" colspan="2">
+                            BATAS AMBANG NILAI TINGKAT KEKUMUHAN
+                          </td>
+                          <td class="text-right" colspan="2">TOTAL NILAI</td>
+                          <td
+                            class="text-center"
+                            colspan="2"
+                            id="totalNilai"
+                          ></td>
+                        </tr>
+                        <tr>
+                          <td class="text-center bg-danger" colspan="2">
+                            60 -80 : KUMUH BERAT
+                          </td>
+                          <td class="text-right" colspan="2" rowspan="2">
+                            TINGKAT KEKUMUHAN
+                          </td>
+                          <td
+                            class="text-center"
+                            rowspan="2"
+                            colspan="2"
+                            id="tingkatKekumuhan"
+                          ></td>
+                        </tr>
+                        <tr>
+                          <td class="text-center bg-warning" colspan="2">
+                            38 - 59 : KUMUH SEDANG
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            class="text-center"
+                            style="background-color: yellow"
+                            colspan="2"
+                          >
+                            16 - 37 KUMUH RINGAN
+                          </td>
+                          <td class="text-right" colspan="2">
+                            RATA2 KEKUMUHAN SEKTORAL
+                          </td>
+                          <td
+                            class="text-center"
+                            colspan="2"
+                            id="ratarataKekumuhan"
+                          ></td>
+                        </tr>
+                        <tr>
+                          <td class="text-center bg-success" colspan="2">
+                            &lt; 16, DINYATAKAN TIDAK KUMUH
+                          </td>
+                          <td class="text-right" colspan="2">
+                            KONTRIBUSI PENANGANAN
+                          </td>
+                          <td
+                            class="text-center"
+                            colspan="2"
+                            id="kontribusiPenanganan"
+                          ></td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Section Deskripsi End -->
+    </div>
+    <script type="module" src="/js/main.js"></script>
+  </body>
+</html>
