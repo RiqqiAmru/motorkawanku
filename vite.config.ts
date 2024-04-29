@@ -5,6 +5,7 @@ import { resolve } from "path";
 
 export default defineConfig({
   root: resolve(__dirname, "src"),
+  base: "./",
   assetsInclude: ["**/*.xlsx"], // xlsx file should be treated as assets
   plugins: [
     {

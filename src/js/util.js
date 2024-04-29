@@ -21,6 +21,4 @@ function styleSelected(el) {
   el.classList.add("selected");
 }
 
-
-
 export { dataToElement, decimaltoPercent, styleSelected };

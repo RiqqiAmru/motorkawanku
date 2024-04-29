@@ -3,17 +3,15 @@
 import "../scss/style.scss";
 import { kota, kecamatan, rtrw, kumuhKawasan, kumuhRT } from "./convert";
 import { styleSelected, dataToElement, decimaltoPercent } from "./util";
+import { Tab } from "bootstrap";
+import $ from "jquery";
+
 document.addEventListener("DOMContentLoaded", load);
 
 function load() {
-  let provinsi = document.getElementById("provinsi");
-  provinsi.innerHTML = kota.provinsi;
-
-  let elKota = document.getElementById("kota");
-  elKota.innerHTML = kota.kota;
-
-  let elKecamatan = document.getElementById("kecamatan");
-  elKecamatan.innerHTML = kecamatan[0].wilayah;
+  dataToElement("provinsi", kota.provinsi);
+  dataToElement("kota", kota.kota);
+  dataToElement("kecamatan", kecamatan[0].wilayah);
 
   let elKelurahan = document.getElementById("kelurahan");
   kecamatan.forEach((k) => {
@@ -27,11 +25,13 @@ function load() {
 
 function loadKumuhKawasan(kawasanKumuh, element) {
   styleSelected(element);
+  $("#myTab").attr("hidden", true);
   // get kawasan id
   let kecamatanKumuh = kecamatan.find((k) => k.kawasan === kawasanKumuh);
 
   // cari rtrw berdasarkan id kawasan
   let rtrwKumuh = rtrw.filter((r) => r.kawasan === kecamatanKumuh.id);
+
   let elRtRw = document.getElementById("rtrw");
   elRtRw.innerHTML = "";
   rtrwKumuh.forEach((r) => {
@@ -53,6 +53,7 @@ function loadKumuhRT(rtKumuh, element) {
   loadHeaderKumuh(rtKumuh);
   let aspekKumuh = kumuhRT.find((k) => k.rt === rtKumuh.id);
   loadAspekKumuh(aspekKumuh);
+  $("#myTab").removeAttr("hidden");
 }
 
 /**
@@ -67,11 +68,7 @@ function loadHeaderKumuh(lokasi) {
   dataToElement("jumlahPenduduk", lokasi.jumlahPenduduk);
   dataToElement("jumlahKK", lokasi.jumlahKK);
 
-  // let panjangJalanIdeal = document.getElementById("panjangJalanIdeal");
-  // panjangJalanIdeal.innerHTML = lokasi.panjangJalanIdeal;
-
-  // let panjangDrainaseIdeal = document.getElementById("panjangDrainaseIdeal");
-  // panjangDrainaseIdeal.innerHTML = lokasi.panjangDrainaseIdeal;
+  // panjang jalan & drainase
 }
 /**
  *
