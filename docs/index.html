@@ -5,11 +5,34 @@
     <link rel="icon" type="image/png" href="favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Motor Kawanku</title>
-    <script type="module" crossorigin src="./assets/index-eUwpby3R.js"></script>
+    <script type="module" crossorigin src="./assets/index-CfLfbH-B.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-C4AMJoQB.css">
   </head>
   <body>
     <div id="app"></div>
+
+    <!-- toast  -->
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div
+        id="alertToast"
+        class="toast bg-primary text-white align-item-center"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="d-flex">
+          <div class="toast-body">Hello, world! This is a toast message.</div>
+          <button
+            type="button"
+            class="btn-close me-2 m-auto"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+    </div>
+
     <div class="boxed_wrapper">
       <!-- Page Title -->
       <section>
@@ -139,6 +162,7 @@
                     </li>
                   </ul>
                   <!-- tab content -->
+
                   <div class="tab-content" id="myTabContent">
                     <!-- baseline -->
                     <div
@@ -151,7 +175,7 @@
                       <div class="bungkus" id="baseline">
                         <table class="table table-bordered table-sm">
                           <tbody>
-                            <tr class="text-center bg-primary1">
+                            <tr class="text-center bg-primary">
                               <th style="width: 200px">ASPEK</th>
                               <th style="width: 250px">KRITERIA</th>
                               <th>VOLUME</th>
@@ -480,6 +504,7 @@
                         </table>
                       </div>
                     </div>
+
                     <!-- investasi -->
                     <div
                       class="tab-pane fade"
@@ -491,7 +516,7 @@
                       <button class="btn btn-danger mb-2">
                         Reset Investasi Penanganan
                       </button>
-                      <table class="table table-bordered">
+                      <table class="table table-bordered" id="tabelPenanganan">
                         <thead>
                           <tr>
                             <th>INFRASTRUKTUR</th>
@@ -500,30 +525,231 @@
                             <th>VOLUME</th>
                             <th>SATUAN</th>
                             <th>SUMBER ANGGARAN</th>
+                            <th>ANGGARAN</th>
                             <th>AKSI</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr>
-                            <th>1. Kondisi Bangunan Gedung</th>
+                            <td id="1" rowspan="3">
+                              1. Kondisi Bangunan Gedung
+                            </td>
+                            <td id="1a">
+                              a. ketidakteraturan bangunan
+                              <br />
+                              <button
+                                type="button"
+                                class="btn btn-outline-primary tambahInvestasiBtn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalInvestasi"
+                                data-bs-type="Tambah"
+                                data-bs-kriteria="1a"
+                              >
+                                Tambah Investasi
+                              </button>
+                            </td>
+                            <td
+                              colspan="6"
+                              class="text-danger text-center fst-italic kosong"
+                              id="1ak"
+                            >
+                              belum ada penanganan
+                            </td>
                           </tr>
                           <tr>
-                            <th>2. Kondisi Jalan Lingkungan</th>
+                            <td id="1b">
+                              b. Kepadatan Bangunan<br />
+                              <button
+                                type="button"
+                                class="btn btn-outline-primary tambahInvestasiBtn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalInvestasi"
+                                data-bs-type="Tambah"
+                                data-bs-kriteria="1b"
+                                hidden
+                              >
+                                Tambah Investasi
+                              </button>
+                            </td>
+
+                            <td
+                              colspan="6"
+                              class="text-danger text-center fst-italic kosong"
+                            >
+                              belum ada penanganan
+                            </td>
                           </tr>
                           <tr>
-                            <th>3. Kondisi Penyediaan Air Minum</th>
+                            <td id="1c">
+                              c. Ketidaksesuaian dengan Persy Teknis Bangunan
+                            </td>
+                            <td
+                              colspan="6"
+                              class="text-danger text-center fst-italic kosong"
+                            >
+                              belum ada penanganan
+                            </td>
                           </tr>
                           <tr>
-                            <th>4. Kondisi Drainase Lingkungan</th>
+                            <td rowspan="2" id="2">
+                              2. Kondisi Jalan Lingkungan
+                            </td>
+                            <td id="2a">
+                              a. Cakupan Pelayanan Jalan Lingkungan
+                            </td>
+                            <td
+                              colspan="6"
+                              class="text-danger text-center fst-italic kosong"
+                            >
+                              belum ada penanganan
+                            </td>
                           </tr>
                           <tr>
-                            <th>5. Kondisi Pengelolaan Air Limbah</th>
+                            <td id="2b">
+                              b. Kualitas Permukaan Jalan lingkungan
+                            </td>
+                            <td
+                              colspan="6"
+                              class="text-danger text-center fst-italic kosong"
+                            >
+                              belum ada penanganan
+                            </td>
                           </tr>
                           <tr>
-                            <th>6. Kondisi Pengelolaan Persampahan</th>
+                            <td rowspan="2" id="3">
+                              3. Kondisi Penyediaan Air Minum
+                            </td>
+                            <td id="3a">
+                              a. Ketersediaan Akses Aman Air Minum
+                            </td>
+                            <td
+                              colspan="6"
+                              class="text-danger text-center fst-italic kosong"
+                            >
+                              belum ada penanganan
+                            </td>
                           </tr>
                           <tr>
-                            <th>7. Kondisi Proteksi Kebakaran</th>
+                            <td id="3b">
+                              b. Tidak terpenuhinya Kebutuhan Air Minum
+                            </td>
+                            <td
+                              colspan="6"
+                              class="text-danger text-center fst-italic kosong"
+                            >
+                              belum ada penanganan
+                            </td>
+                          </tr>
+                          <tr>
+                            <td rowspan="3" id="4">
+                              4. Kondisi Drainase Lingkungan
+                            </td>
+                            <td id="4a">
+                              a. Ketidakmampuan Mengalirkan Limpasan Air
+                            </td>
+                            <td
+                              colspan="6"
+                              class="text-danger text-center fst-italic kosong"
+                            >
+                              belum ada penanganan
+                            </td>
+                          </tr>
+                          <tr>
+                            <td id="4b">b. Ketidaktersediaan Drainase</td>
+                            <td
+                              colspan="6"
+                              class="text-danger text-center fst-italic kosong"
+                            >
+                              belum ada penanganan
+                            </td>
+                          </tr>
+                          <tr>
+                            <td id="4c">c. Kualitas Konstruksi Drainase</td>
+                            <td
+                              colspan="6"
+                              class="text-danger text-center fst-italic kosong"
+                            >
+                              belum ada penanganan
+                            </td>
+                          </tr>
+                          <tr>
+                            <td rowspan="2" id="5">
+                              5. Kondisi Pengelolaan Air Limbah
+                            </td>
+                            <td id="5a">
+                              a. Sistem Pengelolaan Air Limbah Tidak Sesuai
+                              Standar Teknis
+                            </td>
+                            <td
+                              colspan="6"
+                              class="text-danger text-center fst-italic kosong"
+                            >
+                              belum ada penanganan
+                            </td>
+                          </tr>
+                          <tr>
+                            <td id="5b">
+                              b. Prasarana dan Sarana Pengelolaan Air Limbah
+                              Tidak Sesuai dengan Persyaratan Teknis
+                            </td>
+                            <td
+                              colspan="6"
+                              class="text-danger text-center fst-italic kosong"
+                            >
+                              belum ada penanganan
+                            </td>
+                          </tr>
+                          <tr>
+                            <td rowspan="2" id="6">
+                              6. Kondisi Pengelolaan Persampahan
+                            </td>
+                            <td id="6a">
+                              a. Prasarana dan Sarana Persampahan Tidak Sesuai
+                              dengan persyaratan Teknis
+                            </td>
+                            <td
+                              colspan="6"
+                              class="text-danger text-center fst-italic kosong"
+                            >
+                              belum ada penanganan
+                            </td>
+                          </tr>
+                          <tr>
+                            <td id="6b">
+                              b. Sistem Pengelolaan Persampahan yang tidak
+                              sesuai Standar Teknis
+                            </td>
+                            <td
+                              colspan="6"
+                              class="text-danger text-center fst-italic kosong"
+                            >
+                              belum ada penanganan
+                            </td>
+                          </tr>
+                          <tr>
+                            <td rowspan="2" id="7">
+                              7. Kondisi Proteksi Kebakaran
+                            </td>
+                            <td id="7a">
+                              a. Ketidaktersediaan Prasarana Proteksi Kebakaran
+                            </td>
+                            <td
+                              colspan="6"
+                              class="text-danger text-center fst-italic kosong"
+                            >
+                              belum ada penanganan
+                            </td>
+                          </tr>
+                          <tr>
+                            <td id="7b">
+                              b. Ketidaktersediaan Sarana Proteksi Kebakaran
+                            </td>
+                            <td
+                              colspan="6"
+                              class="text-danger text-center fst-italic kosong"
+                            >
+                              belum ada penanganan
+                            </td>
                           </tr>
                         </tbody>
                       </table>
@@ -537,5 +763,111 @@
       </section>
       <!-- Section Deskripsi End -->
     </div>
+
+    <!-- modal -->
+    <div
+      class="modal fade"
+      id="modalInvestasi"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="labelModalInvestasi"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="labelModalInvestasi"></h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <form>
+            <input type="hidden" name="kriteria" id="kriteria" />
+            <div class="modal-body" id="modalInvestasiBody">
+              <div class="input-group mb-3">
+                <label class="input-group-text" for="kegiatan">Kegiatan</label>
+                <select
+                  class="form-select"
+                  id="kegiatan"
+                  required
+                  name="kegiatan"
+                >
+                  <option disabled>Pilih Kegiatan</option>
+                </select>
+              </div>
+              <div class="input-group mb-3">
+                <label class="input-group-text" for="sumberAnggaran"
+                  >Sumber Anggaran</label
+                >
+                <select
+                  class="form-select"
+                  id="sumberAnggaran"
+                  required
+                  name="sumberAnggaran"
+                >
+                  <option disabled aria-readonly="true">
+                    Pilih Sumber Anggaran
+                  </option>
+                  <option value="APBD">APBD</option>
+                  <option value="DAK">DAK</option>
+                  <option value="APBD Provinsi">APBD Provinsi</option>
+                  <option value="APBN">APBN</option>
+                  <option value="CSR">CSR</option>
+                  <option value="Dana Desa">Dana Desa</option>
+                  <option value="Lainnya">Lainnya</option>
+                </select>
+              </div>
+              <div class="input-group mb-3">
+                <label class="input-group-text" for="volume"
+                  >Volume Kegiatan</label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="volume"
+                  required
+                  name="volume"
+                />
+                <input
+                  type="text"
+                  readonly
+                  class="input-group-text"
+                  id="satuan"
+                  value="Unit"
+                  name="satuan"
+                />
+              </div>
+              <div class="input-group mb-3">
+                <label class="input-group-text" for="anggaran">Anggaran </label>
+                <span class="input-group-text">Rp.</span>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="anggaran"
+                  required
+                  name="anggaran"
+                />
+                <span class="input-group-text">.000,--</span>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="submit" class="btn btn-primary">Simpan Data</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
   </body>
 </html>

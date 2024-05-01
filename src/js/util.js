@@ -1,3 +1,5 @@
+import { Toast } from "bootstrap";
+import $ from "jquery";
 /**
  *
  * @param {*} id element id
@@ -21,4 +23,11 @@ function styleSelected(el) {
   el.classList.add("selected");
 }
 
-export { dataToElement, decimaltoPercent, styleSelected };
+function showToast(message, type) {
+  const toastBootstrap = Toast.getOrCreateInstance($("#alertToast")[0]);
+  toastBootstrap._element.classList.add(`bg-${type}`);
+  toastBootstrap._element.querySelector(".toast-body").textContent = message;
+  toastBootstrap.show();
+}
+
+export { dataToElement, decimaltoPercent, styleSelected, showToast };

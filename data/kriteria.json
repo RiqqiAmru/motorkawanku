@@ -1,79 +1,223 @@
-{
-  "aspek kekumuhan": {
-    "1.kondisi-bangunan-gedung": {
-      "a .ketidakteraturan bangunan": {
-        "satuan": "unit"
-      },
-      "b. kepadatan bangunan": {
-        "satuan": "Ha"
-      },
-      "c . ketidaksesuaian dengan persy teknis pembangunan": {
-        "satuan": "unit"
-      },
-      "rata-rata": "persen"
-    },
-    "2. kondisi jalan lingkungan": {
-      "a. cakupan pelayanan jalan lingkungan": {
-        "satuan": "meter"
-      },
-      "b. kualitas permukaan jalan  lingkungan": {
-        "satuan": "meter"
-      },
-      "rata-rata": "persen"
-    },
-    "3. kondisi penyediaan air minum": {
-      "a. ketersediaan akses aman air minum": {
-        "satuan": "KK"
-      },
-      "b. tidak terpenuhinya kebutuhan air minum": {
-        "satuan": "KK"
-      },
-      "rata-rata": "persen"
-    },
-    "4. kondisi drainase lingkungan": {
-      "a. ketidakmampuan mengalirkan limpasan air": {
-        "satuan": "Ha"
-      },
-      "b. ketidaktersediaan drainase": {
-        "satuan": "meter"
-      },
-      "c. kualitas konstruksi drainase": {
-        "satuan": "meter"
-      },
-      "rata-rata": "persen"
-    },
-    "5. kondisi pengelolaan air limbah": {
-      "a. sistem pengelolaan air limbah sesuai standar teknis": {
-        "satuan": "KK"
-      },
-      "b. Prasarana dan Sarana Pengelolaan Air Limbah Tidak Sesuai dengan Persyaratan Teknis": {
-        "satuan": "KK"
-      },
-      "rata-rata": "persen"
-    },
-    "6. kondisi pengelolaan persampahan": {
-      "a. Prasarana dan Sarana Persampahan Tidak Sesuai dengan persyaratan Teknis": {
-        "satuan": "KK"
-      },
-      "b. Sistem Pengelolaan Persampahan yang tidak sesuai Standar Teknis": {
-        "satuan": "KK"
-      },
-      "rata-rata": "persen"
-    },
-    "7. kondisi proteksi kebakaran": {
-      "a. Ketidaktersediaan Prasarana Proteksi Kebakaran": {
-        "satuan": "unit"
-      },
-      "b. Ketidaktersediaan Sarana Proteksi Kebakaran": {
-        "satuan": "unit"
-      },
-      "rata-rata": "persen"
-    },
-    "batas ambang": {
-      "60-80": "kumuh berat",
-      "38-59": "kumuh sedang",
-      "16-37": "kumuh ringan",
-      "0-15": "tidak kumuh"
-    }
+[
+  {
+    "kriteria": [
+      "1a"
+    ],
+    "kegiatan": [
+      "Jalan Aspal Hotmix",
+      "Jalan Beton",
+      "Jalan Buras (Leburan Aspal)",
+      "Jalan Kayu/Titian/Jerambah Kayu",
+      "Jalan Lapen (Lapisan Penetrasi)",
+      "Jalan Makadam",
+      "Jalan Paving Block",
+      "Jalan Sirtu",
+      "Jalan Tanah",
+      "Jalan Telford",
+      "Pedestrian/Jalur Pejalan Kaki",
+      "Penataan Rumah Deret/Rumah Susun"
+    ],
+    "satuan": "Unit"
+  },
+  {
+    "kriteria": [
+      "1b"
+    ],
+    "kegiatan": [
+      "Penataan Rumah Deret/Rumah Susun"
+    ],
+    "satuan": "Ha"
+  },
+  {
+    "kriteria": [
+      "1c"
+    ],
+    "kegiatan": [
+      "Penataan Rumah Deret/Rumah Susun",
+      "Rehab/perbaikan Rumah Tidak Layak Huni (Aladin)"
+    ],
+    "satuan": "Unit"
+  },
+  {
+    "kriteria": [
+      "2a",
+      "2b"
+    ],
+    "kegiatan": [
+      "Jalan Aspal Hotmix",
+      "Jalan Beton",
+      "Jalan Buras (Leburan Aspal)",
+      "Jalan Kayu/Titian/Jerambah Kayu",
+      "Jalan Lapen (Lapisan Penetrasi)",
+      "Jalan Makadam",
+      "Jalan Paving Block",
+      "Jalan Sirtu",
+      "Jalan Tanah",
+      "Jalan Telford",
+      "Jembatan Besi",
+      "Jembatan Beton/Batu/Box Culvert",
+      "Jembatan Gantung",
+      "Jembatan Kayu",
+      "Jembatan Komposit",
+      "Jembatan Pelimpas",
+      "Pedestrian/Jalur Pejalan Kaki"
+    ],
+    "satuan": "Meter"
+  },
+  {
+    "kriteria": [
+      "3a",
+      "3b"
+    ],
+    "kegiatan": [
+      "Bak Pembagi",
+      "Hidran Umum ( HU )/Kran Umum (KU)",
+      "Instalasi Pengolahan Air Limbah (IPAL) Setempat/Terpusat",
+      "Instalasi Pengolahan Air Sederhana (IPAS)",
+      "Pelindung Mata Air ( PMA )",
+      "Penampung Air Hujan ( PAH )",
+      "Penangkap Air Permukaan ( PAP ) (Broncaptering/bakpengumpul)",
+      "Perpipaan",
+      "Sambungan Rumah",
+      "Septictank Komunal",
+      "Sumur Bor",
+      "Sumur Bor Dalam (SBD) / Sumur Arteris",
+      "Sumur Gali",
+      "Sumur Pompa Tangan ( SPT )"
+    ],
+    "satuan": "KK"
+  },
+  {
+    "kriteria": [
+      "4a"
+    ],
+    "kegiatan": [
+      "Drainase Lingkungan",
+      "Gorong-gorong",
+      "Kolam Resapan",
+      "Normalisasi Saluran",
+      "Pintu Air",
+      "Pompa Air & Rumah Pompa",
+      "Resapan Biopori",
+      "Saluran Pembuangan Limbah rumah tangga, industri, sarana komersial,sarana umum (Grey Water)",
+      "Sumur Resapan Air Hujan",
+      "Tanggul Pengendali Banjir"
+    ],
+    "satuan": "Ha"
+  },
+  {
+    "kriteria": [
+      "4b"
+    ],
+    "kegiatan": [
+      "Drainase Lingkungan",
+      "Gorong-gorong",
+      "Normalisasi Saluran",
+      "Saluran Pembuangan Limbah rumah tangga, industri, sarana komersial,sarana umum (Grey Water)",
+      "Sumur Resapan Air Hujan"
+    ],
+    "satuan": "Meter"
+  },
+  {
+    "kriteria": [
+      "4c"
+    ],
+    "kegiatan": [
+      "Drainase Lingkungan",
+      "Gorong-gorong",
+      "Normalisasi Saluran",
+      "Penutup Saluran/Parit (Plat beton,dll)",
+      "Saluran Pembuangan Limbah rumah tangga, industri, sarana komersial,sarana umum (Grey Water)"
+    ],
+    "satuan": "Meter"
+  },
+  {
+    "kriteria": [
+      "5a",
+      "5b"
+    ],
+    "kegiatan": [
+      "Closet Leher Angsa",
+      "Instalasi Pengolahan Air Limbah (IPAL) Setempat/Terpusat",
+      "Jamban (closet+bak air+septictank+resapan)",
+      "Jaringan Perpipaan Pembuangan Air Limbah (Black Water)",
+      "Jaringan Perpipaan Pembuangan Air Limbah (Black Water)",
+      "MCK Mandi + Cuci + Kakus",
+      "Septictank Komunal"
+    ],
+    "satuan": "KK"
+  },
+  {
+    "kriteria": [
+      "6a"
+    ],
+    "kegiatan": [
+      "Bak sampah 3R",
+      "Bangunan Pengolahan Sampah/TPS 3R",
+      "Gerobak/Motor Sampah",
+      "Komposter Sampah/TPS 3R (Peralatan Pengolahan)",
+      "Mobil Sampah",
+      "Tempat  Pengolahan  Sampah  Terpadu (TPST)",
+      "Tempat Pembuangan Sampah Sementara (TPS) 3R"
+    ],
+    "satuan": "KK"
+  },
+  {
+    "kriteria": [
+      "6b"
+    ],
+    "kegiatan": [
+      "Gerobak/Motor Sampah",
+      "Mobil Sampah"
+    ],
+    "satuan": "KK"
+  },
+  {
+    "kriteria": [
+      "7a"
+    ],
+    "kegiatan": [
+      "Jalan Aspal Hotmix",
+      "Jalan Beton",
+      "Jalan Buras (Leburan Aspal)",
+      "Jalan Kayu/Titian/Jerambah Kayu",
+      "Jalan Lapen (Lapisan Penetrasi)",
+      "Jalan Makadam",
+      "Jalan Paving Block",
+      "Jalan Sirtu",
+      "Jalan Tanah",
+      "Jalan Telford",
+      "Jaringan Perpipaan Proteksi Kebakaran",
+      "Jembatan Besi",
+      "Jembatan Beton/Batu/Box Culvert",
+      "Jembatan Kayu",
+      "Jembatan Pelimpas",
+      "Penyediaan Pasokan Air (Kolam penampungan air, Sumur Dalam/Hidran)"
+    ],
+    "satuan": "Unit"
+  },
+  {
+    "kriteria": [
+      "7b"
+    ],
+    "kegiatan": [
+      "Jalan Aspal Hotmix",
+      "Jalan Beton",
+      "Jalan Buras (Leburan Aspal)",
+      "Jalan Kayu/Titian/Jerambah Kayu",
+      "Jalan Lapen (Lapisan Penetrasi)",
+      "Jalan Makadam",
+      "Jalan Paving Block",
+      "Jalan Sirtu",
+      "Jalan Tanah",
+      "Jalan Telford",
+      "Jaringan Perpipaan Proteksi Kebakaran",
+      "Jembatan Besi",
+      "Jembatan Beton/Batu/Box Culvert",
+      "Jembatan Kayu",
+      "Jembatan Pelimpas",
+      "Penyediaan Pasokan Air (Kolam penampungan air, Sumur Dalam/Hidran)"
+    ],
+    "satuan": "Unit"
   }
-}
+]

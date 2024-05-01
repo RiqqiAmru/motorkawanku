@@ -1,10 +1,19 @@
-// import bootstrap
-
+import trash from "../../public/trash.svg";
+import edit from "../../public/edit.svg";
 import "../scss/style.scss";
-import { kota, kecamatan, rtrw, kumuhKawasan, kumuhRT } from "./convert";
+import {
+  kota,
+  kecamatan,
+  rtrw,
+  kumuhKawasan,
+  kumuhRT,
+  aspek,
+} from "./loadData";
 import { styleSelected, dataToElement, decimaltoPercent } from "./util";
-import { Tab } from "bootstrap";
-import $ from "jquery";
+import { Tab, Toast } from "bootstrap";
+import $, { isEmptyObject } from "jquery";
+import "./indexedDB";
+import { saveDataInvestasi, getDataInvestasi } from "./indexedDB";
 
 document.addEventListener("DOMContentLoaded", load);
 
@@ -54,6 +63,7 @@ function loadKumuhRT(rtKumuh, element) {
   let aspekKumuh = kumuhRT.find((k) => k.rt === rtKumuh.id);
   loadAspekKumuh(aspekKumuh);
   $("#myTab").removeAttr("hidden");
+  loadPageInvestasi(2024);
 }
 
 /**
@@ -148,4 +158,91 @@ function loadAspekKumuh(aspekKumuh) {
     "kontribusiPenanganan",
     decimaltoPercent(aspekKumuh["kontribusiPenanganan"])
   );
+}
+/**
+ * @description load tab investasi penanganan kumuh
+ * @param {*} investasi data investasi
+ * @param {int} tahun tahun data investasi
+ */
+function loadPageInvestasi(tahun = 0) {
+  loadTabelInvestasi();
+  if (tahun == new Date().getFullYear()) {
+    $(".tambahInvestasiBtn").removeAttr("hidden");
+    const modalInvestasi = document.getElementById("modalInvestasi");
+    if (modalInvestasi) {
+      modalInvestasi.addEventListener("show.bs.modal", (event) => {
+        // Button that triggered the modal
+        const button = event.relatedTarget;
+        // Extract info from data-bs-* attributes
+        const title = button.getAttribute("data-bs-type");
+        const kriteria = button.getAttribute("data-bs-kriteria");
+
+        // get data from aspek.kriteria.json
+        const kegiatan = aspek.find((a) =>
+          a.kriteria.find((k) => k === kriteria)
+        );
+
+        // update modal content
+        const inputKriteria = modalInvestasi.querySelector("#kriteria");
+        inputKriteria.value = kriteria;
+        const modalTitle = modalInvestasi.querySelector(".modal-title");
+        modalTitle.textContent = `${title} Data`;
+        let elKegiatan = modalInvestasi.querySelector("#kegiatan");
+        elKegiatan.innerHTML = "<option  disabled>Pilih Kegiatan</option>";
+        kegiatan.kegiatan.forEach((k) => {
+          let el = document.createElement("option");
+          el.value = k;
+          el.innerHTML = k;
+          elKegiatan.appendChild(el);
+        });
+        const satuan = modalInvestasi.querySelector("#satuan");
+        satuan.innerHTML = kegiatan.satuan;
+      });
+
+      // tambah data
+      const formInvestasi = modalInvestasi.querySelector("form");
+      formInvestasi.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const formData = new FormData(formInvestasi);
+        let data = {};
+        formData.forEach((value, key) => {
+          data[key] = value;
+        });
+        data["anggaran"] = data["anggaran"] * 1000;
+        // save data to indexed db
+        saveDataInvestasi(data);
+        formInvestasi.reset();
+        modalInvestasi.querySelector(".btn-close").click();
+        loadTabelInvestasi();
+      });
+    }
+  }
+}
+
+async function loadTabelInvestasi() {
+  // ambil data dari indexed db
+  let data = await getDataInvestasi();
+  if (isEmptyObject(data)) {
+    console.log("data investasi kosong");
+    return;
+  }
+  data.forEach((d) => {
+    if ($(`#${d.kriteria}k`)) {
+      // hapus td dan gantikan dengan kumpulan td td baru
+      $(`#${d.kriteria}k`).replaceWith(`
+      <td>${d.kegiatan}</td>
+      <td>${d.volume}</td>
+      <td>${d.satuan}</td>
+      <td>${d.sumberAnggaran}</td>
+      <td>${d.anggaran}</td>
+      <td>
+      <button type="button" class="btn btn-outline-danger btn-sm">
+      <img src="${trash}" class="text-white" alt="delete" width="20" height="20" />
+      </button>
+      </td>
+      `);
+    } else {
+      console.log("menambah tr baru");
+    }
+  });
 }

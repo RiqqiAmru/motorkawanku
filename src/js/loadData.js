@@ -1,5 +1,6 @@
 import { read, utils } from "xlsx";
 import b64 from "../../data/pekalongan.xlsx?b64";
+import aspek from "../../data/kriteria.json";
 
 /* parse workbook and pull data from the first worksheet */
 let wb = read(b64, { type: "base64" });
@@ -24,4 +25,4 @@ wb = read(b64, { type: "base64" });
 wsname = wb.SheetNames[4];
 let kumuhRT = utils.sheet_to_json(wb.Sheets[wsname]);
 
-export { kota, kecamatan, rtrw, kumuhKawasan, kumuhRT };
+export { kota, kecamatan, rtrw, kumuhKawasan, kumuhRT, aspek };
