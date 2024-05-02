@@ -7,13 +7,19 @@ import {
   rtrw,
   kumuhKawasan,
   kumuhRT,
-  aspek,
+  kegiatanInvestasi,
+  aspekKumuh as kriteriaAspekKumuh,
 } from "./loadData";
+import { loadBodyTableInvestasi as loadTabelInvestasi } from "./loadTable";
 import { styleSelected, dataToElement, decimaltoPercent } from "./util";
-import { Tab, Toast } from "bootstrap";
+import { Alert, Tab, Toast, Modal } from "bootstrap";
 import $, { isEmptyObject } from "jquery";
 import "./indexedDB";
-import { saveDataInvestasi, getDataInvestasi } from "./indexedDB";
+import {
+  saveDataInvestasi,
+  getDataInvestasi,
+  hapusDataInvestasi,
+} from "./indexedDB";
 
 document.addEventListener("DOMContentLoaded", load);
 
@@ -167,7 +173,6 @@ function loadAspekKumuh(aspekKumuh) {
 function loadPageInvestasi(tahun = 0) {
   loadTabelInvestasi();
   if (tahun == new Date().getFullYear()) {
-    $(".tambahInvestasiBtn").removeAttr("hidden");
     const modalInvestasi = document.getElementById("modalInvestasi");
     if (modalInvestasi) {
       modalInvestasi.addEventListener("show.bs.modal", (event) => {
@@ -178,7 +183,7 @@ function loadPageInvestasi(tahun = 0) {
         const kriteria = button.getAttribute("data-bs-kriteria");
 
         // get data from aspek.kriteria.json
-        const kegiatan = aspek.find((a) =>
+        const kegiatan = kegiatanInvestasi.find((a) =>
           a.kriteria.find((k) => k === kriteria)
         );
 
@@ -196,7 +201,7 @@ function loadPageInvestasi(tahun = 0) {
           elKegiatan.appendChild(el);
         });
         const satuan = modalInvestasi.querySelector("#satuan");
-        satuan.innerHTML = kegiatan.satuan;
+        satuan.value = kegiatan.satuan;
       });
 
       // tambah data
@@ -219,30 +224,17 @@ function loadPageInvestasi(tahun = 0) {
   }
 }
 
-async function loadTabelInvestasi() {
-  // ambil data dari indexed db
-  let data = await getDataInvestasi();
-  if (isEmptyObject(data)) {
-    console.log("data investasi kosong");
-    return;
-  }
-  data.forEach((d) => {
-    if ($(`#${d.kriteria}k`)) {
-      // hapus td dan gantikan dengan kumpulan td td baru
-      $(`#${d.kriteria}k`).replaceWith(`
-      <td>${d.kegiatan}</td>
-      <td>${d.volume}</td>
-      <td>${d.satuan}</td>
-      <td>${d.sumberAnggaran}</td>
-      <td>${d.anggaran}</td>
-      <td>
-      <button type="button" class="btn btn-outline-danger btn-sm">
-      <img src="${trash}" class="text-white" alt="delete" width="20" height="20" />
-      </button>
-      </td>
-      `);
-    } else {
-      console.log("menambah tr baru");
-    }
-  });
+// hapus data investasi
+async function hapusInvestasi(id) {
+  // tampilkan modal hapusData
+  $("#hapusData")
+    .find(".btn-danger")
+    .on("click", async () => {
+      hapusDataInvestasi(id);
+      loadTabelInvestasi();
+      Modal.getOrCreateInstance($("#hapusData")[0]).hide();
+    });
+  Modal.getOrCreateInstance($("#hapusData")[0]).show();
 }
+// define hapusData
+document.hapusInvestasi = hapusInvestasi;

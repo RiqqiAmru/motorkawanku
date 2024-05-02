@@ -1,5 +1,6 @@
 import { Toast } from "bootstrap";
 import $ from "jquery";
+
 /**
  *
  * @param {*} id element id
@@ -30,4 +31,26 @@ function showToast(message, type) {
   toastBootstrap.show();
 }
 
-export { dataToElement, decimaltoPercent, styleSelected, showToast };
+function formatRupiah(angka) {
+  var number_string = angka.toString(),
+    sisa = number_string.length % 3,
+    rupiah = number_string.substr(0, sisa),
+    ribuan = number_string.substr(sisa).match(/\d{3}/g);
+
+  if (ribuan) {
+    var separator = sisa ? "." : "";
+    rupiah += separator + ribuan.join(".");
+  }
+
+  rupiah = "Rp." + rupiah + ",00";
+
+  return rupiah;
+}
+
+export {
+  dataToElement,
+  decimaltoPercent,
+  styleSelected,
+  showToast,
+  formatRupiah,
+};

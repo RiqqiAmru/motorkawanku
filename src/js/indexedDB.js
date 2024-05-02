@@ -38,13 +38,30 @@ async function getDataInvestasi() {
     let transaction = db.transaction(["investasi"], "readonly");
     let objectStore = transaction.objectStore("investasi");
     let request = objectStore.getAll();
-    request.onsuccess = function(event) {
+    request.onsuccess = function (event) {
       resolve(request.result);
     };
-    request.onerror = function(event) {
+    request.onerror = function (event) {
       reject("error : tidak bisa mengambil data investasi");
     };
   });
 }
 
-export { saveDataInvestasi, getDataInvestasi };
+async function hapusDataInvestasi(id) {
+  return new Promise((resolve, reject) => {
+    let transaction = db.transaction(["investasi"], "readwrite");
+    let objectStore = transaction.objectStore("investasi");
+    let request = objectStore.delete(id);
+    request.onsuccess = function (event) {
+      console.log("data berhasil dihapus");
+      showToast("Data investasi berhasil dihapus", "success");
+      resolve();
+    };
+    request.onerror = function (event) {
+      showToast("Data investasi gagal dihapus", "danger");
+      reject("error : tidak bisa menghapus data investasi");
+    };
+  });
+}
+
+export { saveDataInvestasi, getDataInvestasi, hapusDataInvestasi };
