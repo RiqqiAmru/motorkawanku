@@ -5,7 +5,7 @@
     <link rel="icon" type="image/png" href="favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Motor Kawanku</title>
-    <script type="module" crossorigin src="./assets/index-CfLfbH-B.js"></script>
+    <script type="module" crossorigin src="./assets/index-C7FPpult.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-C4AMJoQB.css">
   </head>
   <body>
@@ -529,7 +529,7 @@
                             <th>AKSI</th>
                           </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="bodyTabelInvestasi">
                           <tr>
                             <td id="1" rowspan="3">
                               1. Kondisi Bangunan Gedung
@@ -548,13 +548,6 @@
                                 Tambah Investasi
                               </button>
                             </td>
-                            <td
-                              colspan="6"
-                              class="text-danger text-center fst-italic kosong"
-                              id="1ak"
-                            >
-                              belum ada penanganan
-                            </td>
                           </tr>
                           <tr>
                             <td id="1b">
@@ -571,23 +564,21 @@
                                 Tambah Investasi
                               </button>
                             </td>
-
-                            <td
-                              colspan="6"
-                              class="text-danger text-center fst-italic kosong"
-                            >
-                              belum ada penanganan
-                            </td>
                           </tr>
                           <tr>
                             <td id="1c">
-                              c. Ketidaksesuaian dengan Persy Teknis Bangunan
-                            </td>
-                            <td
-                              colspan="6"
-                              class="text-danger text-center fst-italic kosong"
-                            >
-                              belum ada penanganan
+                              c. Ketidaksesuaian dengan Persy Teknis Bangunan<br />
+                              <button
+                                type="button"
+                                class="btn btn-outline-primary tambahInvestasiBtn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalInvestasi"
+                                data-bs-type="Tambah"
+                                data-bs-kriteria="1c"
+                                hidden
+                              >
+                                Tambah Investasi
+                              </button>
                             </td>
                           </tr>
                           <tr>
@@ -595,24 +586,34 @@
                               2. Kondisi Jalan Lingkungan
                             </td>
                             <td id="2a">
-                              a. Cakupan Pelayanan Jalan Lingkungan
-                            </td>
-                            <td
-                              colspan="6"
-                              class="text-danger text-center fst-italic kosong"
-                            >
-                              belum ada penanganan
+                              a. Cakupan Pelayanan Jalan Lingkungan<br />
+                              <button
+                                type="button"
+                                class="btn btn-outline-primary tambahInvestasiBtn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalInvestasi"
+                                data-bs-type="Tambah"
+                                data-bs-kriteria="2a"
+                                hidden
+                              >
+                                Tambah Investasi
+                              </button>
                             </td>
                           </tr>
                           <tr>
                             <td id="2b">
-                              b. Kualitas Permukaan Jalan lingkungan
-                            </td>
-                            <td
-                              colspan="6"
-                              class="text-danger text-center fst-italic kosong"
-                            >
-                              belum ada penanganan
+                              b. Kualitas Permukaan Jalan lingkungan<br />
+                              <button
+                                type="button"
+                                class="btn btn-outline-primary tambahInvestasiBtn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalInvestasi"
+                                data-bs-type="Tambah"
+                                data-bs-kriteria="2b"
+                                hidden
+                              >
+                                Tambah Investasi
+                              </button>
                             </td>
                           </tr>
                           <tr>
@@ -620,24 +621,34 @@
                               3. Kondisi Penyediaan Air Minum
                             </td>
                             <td id="3a">
-                              a. Ketersediaan Akses Aman Air Minum
-                            </td>
-                            <td
-                              colspan="6"
-                              class="text-danger text-center fst-italic kosong"
-                            >
-                              belum ada penanganan
+                              a. Ketersediaan Akses Aman Air Minum<br />
+                              <button
+                                type="button"
+                                class="btn btn-outline-primary tambahInvestasiBtn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalInvestasi"
+                                data-bs-type="Tambah"
+                                data-bs-kriteria="3a"
+                                hidden
+                              >
+                                Tambah Investasi
+                              </button>
                             </td>
                           </tr>
                           <tr>
                             <td id="3b">
-                              b. Tidak terpenuhinya Kebutuhan Air Minum
-                            </td>
-                            <td
-                              colspan="6"
-                              class="text-danger text-center fst-italic kosong"
-                            >
-                              belum ada penanganan
+                              b. Tidak terpenuhinya Kebutuhan Air Minum<br />
+                              <button
+                                type="button"
+                                class="btn btn-outline-primary tambahInvestasiBtn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalInvestasi"
+                                data-bs-type="Tambah"
+                                data-bs-kriteria="3b"
+                                hidden
+                              >
+                                Tambah Investasi
+                              </button>
                             </td>
                           </tr>
                           <tr>
@@ -645,31 +656,50 @@
                               4. Kondisi Drainase Lingkungan
                             </td>
                             <td id="4a">
-                              a. Ketidakmampuan Mengalirkan Limpasan Air
-                            </td>
-                            <td
-                              colspan="6"
-                              class="text-danger text-center fst-italic kosong"
-                            >
-                              belum ada penanganan
-                            </td>
-                          </tr>
-                          <tr>
-                            <td id="4b">b. Ketidaktersediaan Drainase</td>
-                            <td
-                              colspan="6"
-                              class="text-danger text-center fst-italic kosong"
-                            >
-                              belum ada penanganan
+                              a. Ketidakmampuan Mengalirkan Limpasan Air<br />
+                              <button
+                                type="button"
+                                class="btn btn-outline-primary tambahInvestasiBtn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalInvestasi"
+                                data-bs-type="Tambah"
+                                data-bs-kriteria="4a"
+                                hidden
+                              >
+                                Tambah Investasi
+                              </button>
                             </td>
                           </tr>
                           <tr>
-                            <td id="4c">c. Kualitas Konstruksi Drainase</td>
-                            <td
-                              colspan="6"
-                              class="text-danger text-center fst-italic kosong"
-                            >
-                              belum ada penanganan
+                            <td id="4b">
+                              b. Ketidaktersediaan Drainase<br />
+                              <button
+                                type="button"
+                                class="btn btn-outline-primary tambahInvestasiBtn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalInvestasi"
+                                data-bs-type="Tambah"
+                                data-bs-kriteria="4b"
+                                hidden
+                              >
+                                Tambah Investasi
+                              </button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td id="4c">
+                              c. Kualitas Konstruksi Drainase<br />
+                              <button
+                                type="button"
+                                class="btn btn-outline-primary tambahInvestasiBtn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalInvestasi"
+                                data-bs-type="Tambah"
+                                data-bs-kriteria="4c"
+                                hidden
+                              >
+                                Tambah Investasi
+                              </button>
                             </td>
                           </tr>
                           <tr>
@@ -678,25 +708,35 @@
                             </td>
                             <td id="5a">
                               a. Sistem Pengelolaan Air Limbah Tidak Sesuai
-                              Standar Teknis
-                            </td>
-                            <td
-                              colspan="6"
-                              class="text-danger text-center fst-italic kosong"
-                            >
-                              belum ada penanganan
+                              Standar Teknis<br />
+                              <button
+                                type="button"
+                                class="btn btn-outline-primary tambahInvestasiBtn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalInvestasi"
+                                data-bs-type="Tambah"
+                                data-bs-kriteria="5a"
+                                hidden
+                              >
+                                Tambah Investasi
+                              </button>
                             </td>
                           </tr>
                           <tr>
                             <td id="5b">
                               b. Prasarana dan Sarana Pengelolaan Air Limbah
-                              Tidak Sesuai dengan Persyaratan Teknis
-                            </td>
-                            <td
-                              colspan="6"
-                              class="text-danger text-center fst-italic kosong"
-                            >
-                              belum ada penanganan
+                              Tidak Sesuai dengan Persyaratan Teknis<br />
+                              <button
+                                type="button"
+                                class="btn btn-outline-primary tambahInvestasiBtn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalInvestasi"
+                                data-bs-type="Tambah"
+                                data-bs-kriteria="5b"
+                                hidden
+                              >
+                                Tambah Investasi
+                              </button>
                             </td>
                           </tr>
                           <tr>
@@ -705,25 +745,35 @@
                             </td>
                             <td id="6a">
                               a. Prasarana dan Sarana Persampahan Tidak Sesuai
-                              dengan persyaratan Teknis
-                            </td>
-                            <td
-                              colspan="6"
-                              class="text-danger text-center fst-italic kosong"
-                            >
-                              belum ada penanganan
+                              dengan persyaratan Teknis<br />
+                              <button
+                                type="button"
+                                class="btn btn-outline-primary tambahInvestasiBtn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalInvestasi"
+                                data-bs-type="Tambah"
+                                data-bs-kriteria="6a"
+                                hidden
+                              >
+                                Tambah Investasi
+                              </button>
                             </td>
                           </tr>
                           <tr>
                             <td id="6b">
                               b. Sistem Pengelolaan Persampahan yang tidak
-                              sesuai Standar Teknis
-                            </td>
-                            <td
-                              colspan="6"
-                              class="text-danger text-center fst-italic kosong"
-                            >
-                              belum ada penanganan
+                              sesuai Standar Teknis<br />
+                              <button
+                                type="button"
+                                class="btn btn-outline-primary tambahInvestasiBtn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalInvestasi"
+                                data-bs-type="Tambah"
+                                data-bs-kriteria="6b"
+                                hidden
+                              >
+                                Tambah Investasi
+                              </button>
                             </td>
                           </tr>
                           <tr>
@@ -731,24 +781,35 @@
                               7. Kondisi Proteksi Kebakaran
                             </td>
                             <td id="7a">
-                              a. Ketidaktersediaan Prasarana Proteksi Kebakaran
-                            </td>
-                            <td
-                              colspan="6"
-                              class="text-danger text-center fst-italic kosong"
-                            >
-                              belum ada penanganan
+                              a. Ketidaktersediaan Prasarana Proteksi
+                              Kebakaran<br />
+                              <button
+                                type="button"
+                                class="btn btn-outline-primary tambahInvestasiBtn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalInvestasi"
+                                data-bs-type="Tambah"
+                                data-bs-kriteria="7a"
+                                hidden
+                              >
+                                Tambah Investasi
+                              </button>
                             </td>
                           </tr>
                           <tr>
                             <td id="7b">
-                              b. Ketidaktersediaan Sarana Proteksi Kebakaran
-                            </td>
-                            <td
-                              colspan="6"
-                              class="text-danger text-center fst-italic kosong"
-                            >
-                              belum ada penanganan
+                              b. Ketidaktersediaan Sarana Proteksi Kebakaran<br />
+                              <button
+                                type="button"
+                                class="btn btn-outline-primary tambahInvestasiBtn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalInvestasi"
+                                data-bs-type="Tambah"
+                                data-bs-kriteria="7b"
+                                hidden
+                              >
+                                Tambah Investasi
+                              </button>
                             </td>
                           </tr>
                         </tbody>
@@ -764,7 +825,7 @@
       <!-- Section Deskripsi End -->
     </div>
 
-    <!-- modal -->
+    <!-- modal tambah data -->
     <div
       class="modal fade"
       id="modalInvestasi"
@@ -869,5 +930,34 @@
       </div>
     </div>
 
+    <!-- modal konfirmasi hapus data -->
+    <div class="modal fade" tabindex="-1" id="hapusData">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Hapus Data</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>Apakah Anda yakin untuk hapus Data investasi?</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Batal
+            </button>
+            <button type="button" class="btn btn-danger">Hapus Data</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
