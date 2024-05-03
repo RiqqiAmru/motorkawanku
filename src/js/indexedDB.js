@@ -26,14 +26,46 @@ request.onupgradeneeded = function (event) {
 function saveDataInvestasi(data) {
   let transaction = db.transaction(["investasi"], "readwrite");
   let objectStore = transaction.objectStore("investasi");
-  let request = objectStore.add(data);
-  request.onsuccess = function (event) {
-    console.log("data berhasil disimpan");
-    showToast("Data berhasil disimpan", "success");
-  };
+  if (data.id) {
+    // jadikan data id sebagai int
+    data.id = parseInt(data.id);
+    let request = objectStore.put(data);
+    request.onsuccess = function (event) {
+      console.log("data berhasil diupdate");
+      showToast("Data berhasil diupdate", "success");
+    };
+    request.onerror = function (event) {
+      showToast("Data gagal diupdate", "danger");
+    };
+  } else {
+    // hapus id dari data
+    delete data.id;
+    let request = objectStore.add(data);
+    request.onsuccess = function (event) {
+      console.log("data berhasil disimpan");
+      showToast("Data berhasil disimpan", "success");
+    };
+    request.onerror = function (event) {
+      showToast("Data gagal disimpan", "danger");
+    };
+  }
 }
 
-async function getDataInvestasi() {
+async function getDataInvestasi(id = null) {
+  if (id) {
+    return new Promise((resolve, reject) => {
+      let transaction = db.transaction(["investasi"], "readonly");
+      let objectStore = transaction.objectStore("investasi");
+      let request = objectStore.get(id);
+      request.onsuccess = function (event) {
+        console.log("sucess", request);
+        resolve(request.result);
+      };
+      request.onerror = function (event) {
+        reject("error : tidak bisa mengambil  data investasi");
+      };
+    });
+  }
   return new Promise((resolve, reject) => {
     let transaction = db.transaction(["investasi"], "readonly");
     let objectStore = transaction.objectStore("investasi");

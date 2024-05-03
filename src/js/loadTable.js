@@ -2,6 +2,7 @@ import { aspekKumuh } from "./loadData";
 import { getDataInvestasi, hapusDataInvestasi } from "./indexedDB";
 import trash from "../../public/trash.svg";
 import add from "../../public/add.svg";
+import edit from "../../public/edit.svg";
 import { formatRupiah } from "./util";
 
 const loadBodyTableInvestasi = async () => {
@@ -90,9 +91,26 @@ function insertDataKegiatan(row, data) {
     row.insertCell().textContent = data.sumberAnggaran;
     row.insertCell().textContent = formatRupiah(data.anggaran);
     const aksi = row.insertCell();
-    aksi.innerHTML = `<button type="button" class="btn btn-outline-danger btn-sm" onclick="hapusInvestasi(${data.id})">
+    aksi.classList.add("d-flex", "gap-1");
+    aksi.innerHTML = `<button type="button" class="btn btn-outline-danger btn-sm " onclick="hapusInvestasi(${
+      data.id
+    })">
     <img src="${trash}"  class="text-white" alt="delete" width="20" height="20" />
-    </button>`;
+    </button>
+    <button type="button" class="btn btn-outline-primary btn-sm"   data-bs-toggle="modal"
+    data-bs-target="#modalInvestasi"
+    data-bs-type="Edit"
+    data-bs-kriteria="${data.kriteria}"
+    data-bs-id="${data.id}"
+    data-bs-kegiatan="${data.kegiatan}"
+    data-bs-volume="${data.volume}"
+    data-bs-satuan="${data.satuan}"
+    data-bs-sumberAnggaran="${data.sumberAnggaran}"
+    data-bs-anggaran="${data.anggaran / 1000}"
+    aria-label="Edit Data Investasi">
+    <img src="${edit}"  class="text-white" alt="edit" width="20" height="20" />
+    </button>
+    `;
   }
 }
 

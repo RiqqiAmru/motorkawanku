@@ -34,7 +34,7 @@ untuk menampilkan data-data kawasan kumuh yang ada di kota pekalongan, berdasark
 
 # todo
 
-- [] fitur edit data investasi
+- [x] fitur edit data investasi
 - [] load data investasi per RT.
 - [] fitur kumuh akhir & penghitungan
 - [] leaflet js

@@ -187,6 +187,24 @@ function loadPageInvestasi(tahun = 0) {
           a.kriteria.find((k) => k === kriteria)
         );
 
+        // if edit, get data from button
+        if (title === "Edit") {
+          const id = button.getAttribute("data-bs-id");
+          const kegiatan = button.getAttribute("data-bs-kegiatan");
+          const volume = button.getAttribute("data-bs-volume");
+          const satuan = button.getAttribute("data-bs-satuan");
+          const sumberAnggaran = button.getAttribute("data-bs-sumberAnggaran");
+          const anggaran = button.getAttribute("data-bs-anggaran");
+
+          const formInvestasi = modalInvestasi.querySelector("form");
+          formInvestasi.querySelector("#id").value = id;
+          formInvestasi.querySelector("#kegiatan").value = kegiatan;
+          formInvestasi.querySelector("#volume").value = volume;
+          formInvestasi.querySelector("#satuan").value = satuan;
+          formInvestasi.querySelector("#sumberAnggaran").value = sumberAnggaran;
+          formInvestasi.querySelector("#anggaran").value = anggaran;
+        }
+
         // update modal content
         const inputKriteria = modalInvestasi.querySelector("#kriteria");
         inputKriteria.value = kriteria;
@@ -204,6 +222,12 @@ function loadPageInvestasi(tahun = 0) {
         satuan.value = kegiatan.satuan;
       });
 
+      modalInvestasi.addEventListener("hide.bs.modal", (event) => {
+        const formInvestasi = modalInvestasi.querySelector("form");
+        formInvestasi.reset();
+        formInvestasi.querySelector("#id").value = "";
+      });
+
       // tambah data
       const formInvestasi = modalInvestasi.querySelector("form");
       formInvestasi.addEventListener("submit", (event) => {
@@ -216,6 +240,7 @@ function loadPageInvestasi(tahun = 0) {
         data["anggaran"] = data["anggaran"] * 1000;
         // save data to indexed db
         saveDataInvestasi(data);
+
         formInvestasi.reset();
         modalInvestasi.querySelector(".btn-close").click();
         loadTabelInvestasi();
