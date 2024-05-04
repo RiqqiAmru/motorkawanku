@@ -1,5 +1,8 @@
 import trash from "../../public/trash.svg";
 import edit from "../../public/edit.svg";
+import { createRoot } from "react-dom/client";
+import React from "react";
+import "../../public/favicon.ico";
 import "../scss/style.scss";
 import {
   kota,
@@ -63,13 +66,22 @@ function loadKumuhKawasan(kawasanKumuh, element) {
   let aspekKumuh = kumuhKawasan.find((k) => k.kawasan === kecamatanKumuh.id);
   loadAspekKumuh(aspekKumuh);
 }
+
+// kumuh akhir
+import TabelKumuhAwalAkhir from "./component/TabelKumuhAwalAkhir";
+const domNode = document.getElementById("kumuh-akhir-tab-pane");
+const root = createRoot(domNode);
+
 function loadKumuhRT(rtKumuh, element) {
   styleSelected(element);
   loadHeaderKumuh(rtKumuh);
   let aspekKumuh = kumuhRT.find((k) => k.rt === rtKumuh.id);
   loadAspekKumuh(aspekKumuh);
   $("#myTab").removeAttr("hidden");
-  loadPageInvestasi(2024);
+  loadPageInvestasi(2024, aspekKumuh.id);
+  root.render(
+    <TabelKumuhAwalAkhir kumuhRTawal={aspekKumuh} headerRT={rtKumuh} />
+  );
 }
 
 /**
@@ -170,8 +182,10 @@ function loadAspekKumuh(aspekKumuh) {
  * @param {*} investasi data investasi
  * @param {int} tahun tahun data investasi
  */
-function loadPageInvestasi(tahun = 0) {
-  loadTabelInvestasi();
+function loadPageInvestasi(tahun = 0, idRT) {
+  let tableInvestasi = document.getElementById("tabelPenanganan");
+  tableInvestasi.setAttribute("data-id-kumuh-rt", idRT);
+  loadTabelInvestasi(idRT);
   if (tahun == new Date().getFullYear()) {
     const modalInvestasi = document.getElementById("modalInvestasi");
     if (modalInvestasi) {
@@ -237,29 +251,29 @@ function loadPageInvestasi(tahun = 0) {
         formData.forEach((value, key) => {
           data[key] = value;
         });
+        data["idKumuhRT"] = tableInvestasi.getAttribute("data-id-kumuh-rt");
         data["anggaran"] = data["anggaran"] * 1000;
         // save data to indexed db
         saveDataInvestasi(data);
-
         formInvestasi.reset();
         modalInvestasi.querySelector(".btn-close").click();
-        loadTabelInvestasi();
+        loadTabelInvestasi(idRT);
       });
     }
+
+    // hapus data investasi
+    async function hapusInvestasi(id) {
+      // tampilkan modal hapusData
+      $("#hapusData")
+        .find(".btn-danger")
+        .on("click", async () => {
+          hapusDataInvestasi(id);
+          loadTabelInvestasi(idRT);
+          Modal.getOrCreateInstance($("#hapusData")[0]).hide();
+        });
+      Modal.getOrCreateInstance($("#hapusData")[0]).show();
+    }
+    // define hapusData
+    document.hapusInvestasi = hapusInvestasi;
   }
 }
-
-// hapus data investasi
-async function hapusInvestasi(id) {
-  // tampilkan modal hapusData
-  $("#hapusData")
-    .find(".btn-danger")
-    .on("click", async () => {
-      hapusDataInvestasi(id);
-      loadTabelInvestasi();
-      Modal.getOrCreateInstance($("#hapusData")[0]).hide();
-    });
-  Modal.getOrCreateInstance($("#hapusData")[0]).show();
-}
-// define hapusData
-document.hapusInvestasi = hapusInvestasi;

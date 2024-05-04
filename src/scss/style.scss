@@ -1,9 +1,17 @@
 @import "bootstrap/scss/bootstrap";
 
-tr#biru.bg-birumuda {
+#b-override .bg-birumuda {
   background-color: #05fff3 !important;
 }
 
-.selected {
+#b-override .selected {
   background-color: #f5f107 !important;
+}
+
+#b-override .bg-oren {
+  background-color: #ffbb05;
+}
+
+#b-override .rb-3 {
+  border-right: 3px solid #000000;
 }

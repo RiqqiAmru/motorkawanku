@@ -12,7 +12,18 @@ function dataToElement(id, data) {
   el.innerHTML = data;
 }
 
+function pembulatanDesimal(angka) {
+  if (angka % 1 == 0) {
+    return angka;
+  } else {
+    return angka.toFixed(2);
+  }
+}
+
 function decimaltoPercent(decimal) {
+  if (isNaN(decimal)) return decimal;
+  if (decimal === 0) return "0";
+  if ((decimal * 100) % 1 == 0) return decimal * 100 + "%";
   return (decimal * 100).toFixed(2) + "%";
 }
 
@@ -53,4 +64,5 @@ export {
   styleSelected,
   showToast,
   formatRupiah,
+  pembulatanDesimal,
 };
