@@ -5,10 +5,10 @@
     <link rel="icon" type="image/png" href="favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Motor Kawanku</title>
-    <script type="module" crossorigin src="./assets/index-22A8qVNN.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-C4AMJoQB.css">
+    <script type="module" crossorigin src="./assets/index-DjjcAqyw.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CKBUZXgz.css">
   </head>
-  <body>
+  <body id="b-override">
     <div id="app"></div>
 
     <!-- toast  -->
@@ -125,6 +125,7 @@
                     </div>
                   </div>
                   <hr />
+
                   <!-- tab -->
                   <ul
                     class="nav nav-tabs mb-2"
@@ -158,6 +159,20 @@
                         aria-selected="false"
                       >
                         investasi
+                      </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button
+                        class="nav-link"
+                        id="kumuh-akhir-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#kumuh-akhir-tab-pane"
+                        type="button"
+                        role="tab"
+                        aria-controls="kumuh-akhir-tab-pane"
+                        aria-selected="false"
+                      >
+                        Kumuh Akhir
                       </button>
                     </li>
                   </ul>
@@ -513,9 +528,6 @@
                       aria-labelledby="investasi-tab"
                       tabindex="0"
                     >
-                      <button class="btn btn-danger mb-2">
-                        Reset Investasi Penanganan
-                      </button>
                       <table class="table table-bordered" id="tabelPenanganan">
                         <thead>
                           <tr class="text-center">
@@ -814,6 +826,17 @@
                           </tr>
                         </tbody>
                       </table>
+                    </div>
+
+                    <!-- kumuh akhir -->
+                    <div
+                      class="tab-pane fade"
+                      id="kumuh-akhir-tab-pane"
+                      role="tabpanel"
+                      aria-labelledby="kumuh-akhir-tab"
+                      tabindex="0"
+                    >
+                      <!-- tabel kumuh awal & akhir -->
                     </div>
                   </div>
                 </div>

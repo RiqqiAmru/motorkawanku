@@ -58,6 +58,10 @@ function formatRupiah(angka) {
   return rupiah;
 }
 
+function stringToFloat(string) {
+  return parseFloat(string) || 0;
+}
+
 export {
   dataToElement,
   decimaltoPercent,

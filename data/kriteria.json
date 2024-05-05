@@ -202,22 +202,9 @@
         "7b"
       ],
       "kegiatan": [
-        "Jalan Aspal Hotmix",
-        "Jalan Beton",
-        "Jalan Buras (Leburan Aspal)",
-        "Jalan Kayu/Titian/Jerambah Kayu",
-        "Jalan Lapen (Lapisan Penetrasi)",
-        "Jalan Makadam",
-        "Jalan Paving Block",
-        "Jalan Sirtu",
-        "Jalan Tanah",
-        "Jalan Telford",
-        "Jaringan Perpipaan Proteksi Kebakaran",
-        "Jembatan Besi",
-        "Jembatan Beton/Batu/Box Culvert",
-        "Jembatan Kayu",
-        "Jembatan Pelimpas",
-        "Penyediaan Pasokan Air (Kolam penampungan air, Sumur Dalam/Hidran)"
+        "Alat Pemadam Api Ringan (APAR)",
+        "Mobil Pemadam Kebakaran",
+        "Motor Pemadam Kebakaran"
       ],
       "satuan": "Unit"
     }

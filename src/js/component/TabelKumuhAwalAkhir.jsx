@@ -11,7 +11,7 @@ function TabelKumuhAwalAkhir({ kumuhRTawal, headerRT }) {
       setInvestasi(data);
     };
     fetchData();
-  }, []);
+  }, [kumuhRTawal]);
 
   const kumuhRTAkhir = hitungKumuhRTAkhir(investasi, kumuhRTawal, headerRT);
 
@@ -196,7 +196,7 @@ function TabelKumuhAwalAkhir({ kumuhRTawal, headerRT }) {
                     className="text-center "
                     style={{ backgroundColor: "#ffbb05" }}
                   >
-                    0
+                    {decimaltoPercent(kumuhRTAkhir[d.id])}
                   </td>
                   <td style={{ backgroundColor: "#05fff3" }}></td>
                 </>
@@ -216,10 +216,15 @@ function TabelKumuhAwalAkhir({ kumuhRTawal, headerRT }) {
                   <td className="text-center rb-3">
                     {kumuhRTawal[`${d.id}n`]}
                   </td>
-                  <td className="text-center">0</td>
+                  {/* akhir */}
+                  <td className="text-center">
+                    {pembulatanDesimal(kumuhRTAkhir[`${d.id}v`] || 0)}
+                  </td>
                   <td>{d.satuan}</td>
-                  <td className="text-center">0</td>
-                  <td className="text-center">0</td>
+                  <td className="text-center">
+                    {decimaltoPercent(kumuhRTAkhir[`${d.id}p`] || 0)}
+                  </td>
+                  <td className="text-center ">{kumuhRTAkhir[`${d.id}n`]}</td>
                 </>
               )}
             </tr>
@@ -228,9 +233,7 @@ function TabelKumuhAwalAkhir({ kumuhRTawal, headerRT }) {
             <tr key={i}>
               <th colSpan={2}>{footerKriteria[k]}</th>
               <TdPercentFormatFooter kriteria={k} data={kumuhRTawal[k]} />
-              <td colSpan={4} className="text-center">
-                0
-              </td>
+              <TdPercentFormatFooter kriteria={k} data={kumuhRTAkhir[k]} />
             </tr>
           ))}
         </tbody>
@@ -250,10 +253,9 @@ function TdPercentFormatFooter({ kriteria, data }) {
             : data >= 38
             ? "text-center bg-warning"
             : data >= 16
-            ? "text-center "
+            ? "text-center bg-kuning"
             : "text-center bg-success"
         }
-        style={data >= 16 && data < 38 ? { backgroundColor: "yellow" } : ""}
       >
         {data}
       </td>
@@ -269,10 +271,9 @@ function TdPercentFormatFooter({ kriteria, data }) {
             : data == "KS"
             ? "text-center bg-warning"
             : data == "KR"
-            ? "text-center "
+            ? "text-center bg-kuning "
             : "text-center bg-success"
         }
-        style={data == "KR" ? { backgroundColor: "yellow" } : ""}
       >
         {data == "KB"
           ? "KUMUH BERAT"
