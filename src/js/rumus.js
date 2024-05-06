@@ -92,7 +92,7 @@ export function hitungKumuhRtAkhir(investasi, kumuhRTAwal, headerRT) {
     totalRata.reduce((a, b) => a + b) / totalRata.length;
   kumuhRTAkhir["kontribusiPenanganan"] =
     (kumuhRTAwal["ratarataKekumuhan"] - kumuhRTAkhir["ratarataKekumuhan"]) /
-    (kumuhRTAwal["ratarataKekumuhan"] - 0.24995);
+    kumuhRTAwal["ratarataKekumuhan"];
   kumuhRTAkhir["kontribusiPenanganan"] > 1
     ? (kumuhRTAkhir["kontribusiPenanganan"] = 1)
     : "";

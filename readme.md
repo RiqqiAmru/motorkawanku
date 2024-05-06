@@ -35,9 +35,10 @@ untuk menampilkan data-data kawasan kumuh yang ada di kota pekalongan, berdasark
 # todo
 
 - [x] fitur edit data investasi
-- [] fitur kumuh akhir & penghitungan
+- [x] fitur kumuh akhir & penghitungan
 - [] leaflet js
 
 # error
 
 - setelah membuka laman kumuh rt (render jsx tabel awal akhir), dan setelah itu melakukan aksi di tab investasi, data tidak langsung kerender ulang,(solusi : letakkan renderan tabel awal akhir di tab bawah, jangan tab RT)
+- awasi batas openstreetmap

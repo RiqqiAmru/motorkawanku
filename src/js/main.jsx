@@ -23,7 +23,10 @@ import {
   getDataInvestasi,
   hapusDataInvestasi,
 } from "./indexedDB";
-
+import "leaflet";
+import "./leafletMap";
+import TabelKumuhAwalAkhir from "./component/TabelKumuhAwalAkhir";
+import LeafletMap from "./component/LeafletMap";
 document.addEventListener("DOMContentLoaded", load);
 
 function load() {
@@ -67,11 +70,6 @@ function loadKumuhKawasan(kawasanKumuh, element) {
   loadAspekKumuh(aspekKumuh);
 }
 
-// kumuh akhir
-import TabelKumuhAwalAkhir from "./component/TabelKumuhAwalAkhir";
-const domNode = document.getElementById("kumuh-akhir-tab-pane");
-const root = createRoot(domNode);
-
 function loadKumuhRT(rtKumuh, element) {
   styleSelected(element);
   loadHeaderKumuh(rtKumuh);
@@ -79,7 +77,10 @@ function loadKumuhRT(rtKumuh, element) {
   loadAspekKumuh(aspekKumuh);
   $("#myTab").removeAttr("hidden");
   loadPageInvestasi(2024, aspekKumuh.id);
-  root.render(
+
+  const domNode = document.getElementById("kumuh-akhir-tab-pane");
+  const tabKumuhAkhir = createRoot(domNode);
+  tabKumuhAkhir.render(
     <TabelKumuhAwalAkhir kumuhRTawal={aspekKumuh} headerRT={rtKumuh} />
   );
 }
