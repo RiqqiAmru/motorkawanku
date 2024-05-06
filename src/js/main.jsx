@@ -12,6 +12,7 @@ import {
   kumuhRT,
   kegiatanInvestasi,
   aspekKumuh as kriteriaAspekKumuh,
+  latlng,
 } from "./loadData";
 import { loadBodyTableInvestasi as loadTabelInvestasi } from "./loadTable";
 import { styleSelected, dataToElement, decimaltoPercent } from "./util";
@@ -26,8 +27,11 @@ import {
 import "leaflet";
 import "./leafletMap";
 import TabelKumuhAwalAkhir from "./component/TabelKumuhAwalAkhir";
-import LeafletMap from "./component/LeafletMap";
+import { createPolygon } from "./leafletMap";
+
 document.addEventListener("DOMContentLoaded", load);
+const domNode = document.getElementById("kumuh-akhir-tab-pane");
+const tabKumuhAkhir = createRoot(domNode);
 
 function load() {
   dataToElement("provinsi", kota.provinsi);
@@ -39,19 +43,25 @@ function load() {
     let el = document.createElement("li");
     el.innerHTML = k.kawasan;
     el.classList.add("text-primary");
-    el.addEventListener("click", () => loadKumuhKawasan(k.kawasan, el));
+    el.addEventListener("click", () => loadKumuhKawasan(k, el));
     elKelurahan.appendChild(el);
   });
 }
 
 function loadKumuhKawasan(kawasanKumuh, element) {
+  // get latlngs
+  const dataCoordinate = latlng.find(
+    (l) => (l.kelurahan === kawasanKumuh.kawasan) & (l.kodeRTRW === undefined)
+  );
+  let aspekKumuh = kumuhKawasan.find((k) => k.kawasan === kawasanKumuh.id);
+  dataCoordinate["tingkatKekumuhan"] = aspekKumuh.tingkatKekumuhan;
+
+  createPolygon(dataCoordinate);
+
   styleSelected(element);
   $("#myTab").attr("hidden", true);
-  // get kawasan id
-  let kecamatanKumuh = kecamatan.find((k) => k.kawasan === kawasanKumuh);
 
-  // cari rtrw berdasarkan id kawasan
-  let rtrwKumuh = rtrw.filter((r) => r.kawasan === kecamatanKumuh.id);
+  let rtrwKumuh = rtrw.filter((r) => r.kawasan === kawasanKumuh.id);
 
   let elRtRw = document.getElementById("rtrw");
   elRtRw.innerHTML = "";
@@ -59,27 +69,32 @@ function loadKumuhKawasan(kawasanKumuh, element) {
     let el = document.createElement("li");
     el.innerHTML = r.rtrw;
     el.classList.add("text-primary");
-    el.addEventListener("click", () => loadKumuhRT(r, el));
+    el.addEventListener("click", () => loadKumuhRT(r, el, kawasanKumuh));
     elRtRw.appendChild(el);
   });
 
-  loadHeaderKumuh(kecamatanKumuh);
+  loadHeaderKumuh(kawasanKumuh);
 
   // get aspek kumuh kawasan
-  let aspekKumuh = kumuhKawasan.find((k) => k.kawasan === kecamatanKumuh.id);
   loadAspekKumuh(aspekKumuh);
 }
 
-function loadKumuhRT(rtKumuh, element) {
+function loadKumuhRT(rtKumuh, element, kawasanKumuh) {
+  let aspekKumuh = kumuhRT.find((k) => k.rt === rtKumuh.id);
+
+  const dataCoordinate = latlng.find(
+    (l) =>
+      (l.kelurahan === kawasanKumuh.kawasan) & (l.kodeRTRW === rtKumuh.rtrw)
+  );
+  dataCoordinate["tingkatKekumuhan"] = aspekKumuh.tingkatKekumuhan;
+  createPolygon(dataCoordinate);
+
   styleSelected(element);
   loadHeaderKumuh(rtKumuh);
-  let aspekKumuh = kumuhRT.find((k) => k.rt === rtKumuh.id);
   loadAspekKumuh(aspekKumuh);
   $("#myTab").removeAttr("hidden");
   loadPageInvestasi(2024, aspekKumuh.id);
 
-  const domNode = document.getElementById("kumuh-akhir-tab-pane");
-  const tabKumuhAkhir = createRoot(domNode);
   tabKumuhAkhir.render(
     <TabelKumuhAwalAkhir kumuhRTawal={aspekKumuh} headerRT={rtKumuh} />
   );

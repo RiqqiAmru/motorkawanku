@@ -1,6 +1,7 @@
 import { read, utils } from "xlsx";
 import b64 from "../../data/pekalongan.xlsx?b64";
 import aspek from "../../data/kriteria.json";
+import latlng from "../../data/latlng.json";
 
 /* parse workbook and pull data from the first worksheet */
 let wb = read(b64, { type: "base64" });
@@ -36,4 +37,5 @@ export {
   kumuhRT,
   kegiatanInvestasi,
   aspekKumuh,
+  latlng,
 };
