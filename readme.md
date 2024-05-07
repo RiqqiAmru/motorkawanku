@@ -8,7 +8,7 @@ untuk menampilkan data-data kawasan kumuh yang ada di kota pekalongan, berdasark
 - [x] bisa diakses oleh publik
 - [x] ada fitur input untuk tiap kelurahan ketika menginputkan data investasi (pelajari lagi apa yang diinputkan)
 - [] diberikan akun untuk tiap kelurahan, PERKIM?
-- [] fitur geolokasi spasial google earth pro (optional)
+- [x] fitur geolokasi spasial google earth pro (optional)
 
 # KEBUTUHAN FUNGSIONAL TAMBAHAN BAPPEDA
 
@@ -36,9 +36,18 @@ untuk menampilkan data-data kawasan kumuh yang ada di kota pekalongan, berdasark
 
 - [x] fitur edit data investasi
 - [x] fitur kumuh akhir & penghitungan
-- [] leaflet js
+- [x] leaflet js
+- [] extract data excel perkim
+-
 
 # error
 
 - setelah membuka laman kumuh rt (render jsx tabel awal akhir), dan setelah itu melakukan aksi di tab investasi, data tidak langsung kerender ulang,(solusi : letakkan renderan tabel awal akhir di tab bawah, jangan tab RT)
+
+# CAUTION MISCELLANEOUS
+
 - awasi batas openstreetmap
+- responsive website
+- ubah semua ke react js?
+- About Motor Kawanku dan aspek2 kekumuhan
+- export ke excel

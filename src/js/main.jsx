@@ -1,5 +1,6 @@
 import trash from "../../public/trash.svg";
 import edit from "../../public/edit.svg";
+import { hitungKumuhRtAkhir } from "./rumus";
 import { createRoot } from "react-dom/client";
 import React from "react";
 import "../../public/favicon.ico";
@@ -13,6 +14,7 @@ import {
   kegiatanInvestasi,
   aspekKumuh as kriteriaAspekKumuh,
   latlng,
+  investasi,
 } from "./loadData";
 import { loadBodyTableInvestasi as loadTabelInvestasi } from "./loadTable";
 import { styleSelected, dataToElement, decimaltoPercent } from "./util";
@@ -293,3 +295,25 @@ function loadPageInvestasi(tahun = 0, idRT) {
     document.hapusInvestasi = hapusInvestasi;
   }
 }
+
+// kumuh akhir podosugih 2021
+// ambil kumuh awal, investasi, dan header rt
+const headerKawasan = kecamatan.find((k) => k.kawasan === "Podosugih");
+const kumuhKawasanAwal = kumuhKawasan.find(
+  (k) => k.kawasan === headerKawasan.id && k.tahun === 2020
+);
+const headerRT = rtrw.filter((r) => r.kawasan === headerKawasan.id);
+const kumuhRTAwal = kumuhRT.filter(
+  (k) => k.kawasan === headerKawasan.id && k.tahun === 2020
+);
+const investasiPodosugih = investasi.filter(
+  (i) => i.idKawasan === headerKawasan.id && i.tahun === 2021
+);
+
+const semuaKumuhRTAkhir = [];
+kumuhRTAwal.forEach((rt) => {
+  let satuRT = headerRT.find((r) => r.id === rt.rt);
+  let rtAkhir = hitungKumuhRtAkhir(investasiPodosugih, rt, satuRT);
+  semuaKumuhRTAkhir.push(rtAkhir);
+});
+console.log(semuaKumuhRTAkhir);

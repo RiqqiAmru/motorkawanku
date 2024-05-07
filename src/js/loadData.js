@@ -26,6 +26,10 @@ wb = read(b64, { type: "base64" });
 wsname = wb.SheetNames[4];
 let kumuhRT = utils.sheet_to_json(wb.Sheets[wsname]);
 
+wb = read(b64, { type: "base64" });
+wsname = wb.SheetNames[5];
+let investasi = utils.sheet_to_json(wb.Sheets[wsname]);
+
 const kegiatanInvestasi = aspek.kegiatanInvestasi;
 const aspekKumuh = aspek.aspek;
 
@@ -38,4 +42,5 @@ export {
   kegiatanInvestasi,
   aspekKumuh,
   latlng,
+  investasi,
 };

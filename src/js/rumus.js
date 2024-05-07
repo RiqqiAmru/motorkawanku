@@ -1,22 +1,6 @@
-import { data } from "jquery";
-import { rtrw } from "./loadData";
+// kriteria id untuk loop data berdasarkan id
 
 export function hitungKumuhRtAkhir(investasi, kumuhRTAwal, headerRT) {
-  // kumuh akhir = kumuh awal - investasi
-  let kumuhRTAkhir = [];
-  kumuhRTAkhir["tahun"] = new Date().getFullYear();
-
-  // map investasi menjadi total volume per kriteria
-  let dataVolume = [];
-  investasi.forEach((element) => {
-    if (!dataVolume[element.kriteria]) {
-      dataVolume[element.kriteria] = parseFloat(element.volume) || 0;
-    } else {
-      dataVolume[element.kriteria] += parseFloat(element.volume) || 0;
-    }
-  });
-
-  // kriteria id untuk loop data berdasarkan id
   const kriteriaid = [
     "1a",
     "1b",
@@ -42,12 +26,27 @@ export function hitungKumuhRtAkhir(investasi, kumuhRTAwal, headerRT) {
     "7b",
     "7r",
   ];
+  // kumuh akhir = kumuh awal - investasi
+  let kumuhRTAkhir = [];
+  kumuhRTAkhir["kawasan"] = kumuhRTAwal.kawasan;
+  kumuhRTAkhir["rt"] = kumuhRTAwal.rt;
+  kumuhRTAkhir["tahun"] = new Date().getFullYear();
 
-  // header kumuh untuk menghitung prosen
-  const headerKumuh = rtrw.find((r) => r.id === kumuhRTAwal.rt);
+  // map investasi menjadi total volume per kriteria
+  let dataVolume = [];
+  if (investasi.length > 0) {
+    investasi.forEach((element) => {
+      if (!dataVolume[element.kriteria]) {
+        dataVolume[element.kriteria] = parseFloat(element.volume) || 0;
+      } else {
+        dataVolume[element.kriteria] += parseFloat(element.volume) || 0;
+      }
+    });
+  }
 
   // loop per id kriteria
   kumuhRTAkhir["totalNilai"] = 0;
+
   let rata = [];
   let totalRata = [];
   kriteriaid.forEach((id) => {
@@ -65,7 +64,7 @@ export function hitungKumuhRtAkhir(investasi, kumuhRTAwal, headerRT) {
         kumuhRTAkhir[`${id}p`] = hitungProsenKumuh(
           kumuhRTAkhir[`${id}v`],
           id,
-          headerKumuh
+          headerRT
         );
         kumuhRTAkhir[`${id}n`] = hitungNilaiKumuh(kumuhRTAkhir[`${id}p`]);
       } else {
@@ -82,14 +81,12 @@ export function hitungKumuhRtAkhir(investasi, kumuhRTAwal, headerRT) {
   });
 
   // data footer total (tingkat Kekumuhan)
-  let nilai = kumuhRTAkhir["totalNilai"];
-  if (nilai >= 60) kumuhRTAkhir["tingkatKekumuhan"] = "KB";
-  if (nilai >= 38) kumuhRTAkhir["tingkatKekumuhan"] = "KS";
-  if (nilai >= 16) kumuhRTAkhir["tingkatKekumuhan"] = "KR";
-  else kumuhRTAkhir["tingkatKekumuhan"] = "TK";
-
+  kumuhRTAkhir["tingkatKekumuhan"] = hitungTingkatKekumuhan(
+    kumuhRTAkhir["totalNilai"]
+  );
   kumuhRTAkhir["ratarataKekumuhan"] =
     totalRata.reduce((a, b) => a + b) / totalRata.length;
+  // kontribusi penanganan
   kumuhRTAkhir["kontribusiPenanganan"] =
     (kumuhRTAwal["ratarataKekumuhan"] - kumuhRTAkhir["ratarataKekumuhan"]) /
     kumuhRTAwal["ratarataKekumuhan"];
@@ -97,44 +94,50 @@ export function hitungKumuhRtAkhir(investasi, kumuhRTAwal, headerRT) {
     ? (kumuhRTAkhir["kontribusiPenanganan"] = 1)
     : "";
   return kumuhRTAkhir;
+}
 
-  function hitungProsenKumuh(volume, id, headerKumuh) {
-    switch (id) {
-      case "1a":
-      case "1c":
-      case "7a":
-      case "7b":
-        return volume / headerKumuh.jumlahBangunan;
-        break;
-      case "1b":
-      case "4a":
-        return volume / headerKumuh.luasVerifikasi;
-        break;
-      case "2a":
-      case "2b":
-        return volume / headerKumuh.panjangJalanIdeal;
-        break;
-      case "3a":
-      case "3b":
-      case "5a":
-      case "5b":
-      case "6a":
-      case "6b":
-        return volume / headerKumuh.jumlahKK;
-        break;
-      case "4b":
-      case "4c":
-        return volume / headerKumuh.panjangDrainaseIdeal;
-        break;
-    }
+function hitungProsenKumuh(volume, id, headerRT) {
+  switch (id) {
+    case "1a":
+    case "1c":
+    case "7a":
+    case "7b":
+      return volume / headerRT.jumlahBangunan;
+      break;
+    case "1b":
+    case "4a":
+      return volume / headerRT.luasVerifikasi;
+      break;
+    case "2a":
+    case "2b":
+      return volume / headerRT.panjangJalanIdeal;
+      break;
+    case "3a":
+    case "3b":
+    case "5a":
+    case "5b":
+    case "6a":
+    case "6b":
+      return volume / headerRT.jumlahKK;
+      break;
+    case "4b":
+    case "4c":
+      return volume / headerRT.panjangDrainaseIdeal;
+      break;
   }
+}
 
-  function hitungNilaiKumuh(prosen) {
-    if (prosen >= 0.75995) return 5;
-    if (prosen >= 0.50995) return 3;
-    if (prosen >= 0.24995) return 1;
-    return 0;
-  }
+function hitungNilaiKumuh(prosen) {
+  if (prosen >= 0.75995) return 5;
+  if (prosen >= 0.50995) return 3;
+  if (prosen >= 0.24995) return 1;
+  return 0;
+}
+function hitungTingkatKekumuhan(nilai) {
+  if (nilai >= 60) return "KB";
+  if (nilai >= 38) return "KS";
+  if (nilai >= 16) return "KR";
+  else return "TK";
 }
 
 export default hitungKumuhRtAkhir;
