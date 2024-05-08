@@ -1,16 +1,17 @@
 import { aspekKumuh } from "./loadData";
 import {
+  bukaDatabase,
   getDataInvestasi,
   getDataInvestasiByKumuhRT,
   hapusDataInvestasi,
 } from "./indexedDB";
 import trash from "../../public/trash.svg";
-import add from "../../public/add.svg";
 import edit from "../../public/edit.svg";
 import { formatRupiah } from "./util";
 
 const loadBodyTableInvestasi = async (idKumuhRT) => {
-  let data = await getDataInvestasi();
+  let db = await bukaDatabase();
+  let data = await getDataInvestasi(db);
 
   const table = document.getElementById("bodyTabelInvestasi");
   table.innerHTML = "";

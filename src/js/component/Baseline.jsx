@@ -9,7 +9,7 @@ import { KumuhTerpilih } from "./App";
 
 const Baseline = () => {
   const kumuhTerpilih = useContext(KumuhTerpilih);
-  const dataKumuh = kumuhTerpilih.dataKumuh;
+  const dataKumuh = kumuhTerpilih.dataKumuh && kumuhTerpilih.dataKumuh;
   return (
     <div
       className="tab-pane fade show active"

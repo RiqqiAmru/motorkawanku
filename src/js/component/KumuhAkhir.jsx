@@ -1,7 +1,7 @@
 import React from "react";
 import TabelKumuhAwalAkhir from "./TabelKumuhAwalAkhir";
 
-const KumuhAkhir = () => {
+const KumuhAkhir = ({}) => {
   return (
     <div
       className="tab-pane fade "

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { getDataInvestasi } from "../indexedDB";
+import { bukaDatabase, getDataInvestasi } from "../indexedDB";
 import { decimaltoPercent, pembulatanDesimal } from "../util";
 import hitungKumuhRTAkhir from "../rumus";
 import { KumuhTerpilih } from "./App";
@@ -143,18 +143,17 @@ const footerKriteria = {
   kontribusiPenanganan: "KONTRIBUSI PENANGANAN",
 };
 
-function TabelKumuhAwalAkhir() {
+function TabelKumuhAwalAkhir({}) {
   const kumuhTerpilih = useContext(KumuhTerpilih);
-  const kumuhRTawal = kumuhTerpilih.dataKumuh;
-  const headerRT = kumuhTerpilih.headerRT;
-  
-  if (kumuhRTawal) {
-    const kumuhRTAkhir = hitungKumuhRTAkhir(investasi, kumuhRTawal, headerRT);
-  }
+  let kumuhRTAkhir = [];
+  let kumuhRTawal = [];
+
+  kumuhRTawal = kumuhTerpilih.dataKumuh && kumuhTerpilih.dataKumuh;
+  kumuhRTAkhir = kumuhTerpilih.kumuhAkhir && kumuhTerpilih.kumuhAkhir;
 
   return (
     <>
-      {kumuhRTawal && (
+      {kumuhTerpilih.dataKumuh && (
         <table className="table table-bordered">
           <thead className="text-center">
             <tr>

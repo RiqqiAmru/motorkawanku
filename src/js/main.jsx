@@ -23,6 +23,7 @@ import {
   saveDataInvestasi,
   getDataInvestasi,
   hapusDataInvestasi,
+  bukaDatabase,
 } from "./indexedDB";
 
 import TabelKumuhAwalAkhir from "./component/TabelKumuhAwalAkhir";
@@ -35,7 +36,11 @@ const tabKumuhAkhir = createRoot(domNode);
 
 const app = document.getElementById("app");
 const root = createRoot(app);
-root.render(<App />);
+bukaDatabase()
+  .then((db) => {
+    root.render(<App />);
+  })
+  .catch((e) => console.error("error : ", e));
 
 function load() {
   dataToElement("provinsi", kota.provinsi);
@@ -98,9 +103,9 @@ function loadKumuhRT(rtKumuh, element, kawasanKumuh) {
   $("#myTab").removeAttr("hidden");
   loadPageInvestasi(2024, aspekKumuh.id);
 
-  tabKumuhAkhir.render(
-    <TabelKumuhAwalAkhir kumuhRTawal={aspekKumuh} headerRT={rtKumuh} />
-  );
+  // tabKumuhAkhir.render(
+  //   <TabelKumuhAwalAkhir kumuhRTawal={aspekKumuh} headerRT={rtKumuh} />
+  // );
 }
 
 /**

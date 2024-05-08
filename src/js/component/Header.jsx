@@ -6,6 +6,8 @@ const Header = ({
   loadKawasanKumuh,
   loadRTKumuh,
   kawasanKumuh,
+  handleTahun,
+  tahun,
 }) => {
   let luasVerifikasi = 0;
   let jumlahBangunan = 0;
@@ -94,35 +96,35 @@ const Header = ({
         </table>
       </div>
       <div className="col-md-6">
-        <table className="table table-bordered table-sm">
+        <table className="table table-bordered table-sm ">
           <tbody>
             <tr>
-              <td colSpan={3}>Luas Verifikasi (Ha)</td>
-              <td colSpan={2}>{luasVerifikasi}</td>
+              <td>Luas Verifikasi (Ha)</td>
+              <td>{luasVerifikasi}</td>
             </tr>
             <tr>
-              <td colSpan={3}>Jumlah Bangunan (Unit)</td>
-              <td colSpan={2}>{jumlahBangunan}</td>
+              <td>Jumlah Bangunan (Unit)</td>
+              <td>{jumlahBangunan}</td>
             </tr>
             <tr>
-              <td colSpan={3}>Jumlah Penduduk (jiwa)</td>
-              <td colSpan={2}>{jumlahPenduduk}</td>
+              <td>Jumlah Penduduk (jiwa)</td>
+              <td>{jumlahPenduduk}</td>
             </tr>
             <tr>
-              <td colSpan={3}>Jumlah KK (kk)</td>
-              <td colSpan={2}>{jumlahKK}</td>
+              <td>Jumlah KK (kk)</td>
+              <td>{jumlahKK}</td>
             </tr>
-            <tr>
-              <th colSpan={5} className="text-center">
-                TAHUN
-              </th>
-            </tr>
+          </tbody>
+        </table>
+        <table className="table table-bordered table-sm">
+          <thead>
             <tr className="text-center">
-              <td className="link">2020</td>
-              <td className="link">2021</td>
-              <td className="link">2022</td>
-              <td className="link">2023</td>
-              <td className="link">2024</td>
+              <th colSpan={5}>TAHUN</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="text-center">
+              <SemuaTahun handleTahun={handleTahun} tahun={tahun}></SemuaTahun>
             </tr>
           </tbody>
         </table>
@@ -130,5 +132,23 @@ const Header = ({
     </>
   );
 };
+
+function SemuaTahun({ handleTahun, tahun }) {
+  const tahunIni = new Date().getFullYear();
+  const tahunArray = [];
+  for (let i = tahunIni; i >= 2020; i--) {
+    tahunArray.push(i);
+  }
+  return tahunArray.map((t, i) => (
+    <td key={i}>
+      <span
+        className={tahun === t ? " selected link " : "link"}
+        onClick={() => handleTahun(t)}
+      >
+        {t}
+      </span>
+    </td>
+  ));
+}
 
 export default Header;
