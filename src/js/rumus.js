@@ -1,31 +1,31 @@
 // kriteria id untuk loop data berdasarkan id
 
+const kriteriaid = [
+  "1a",
+  "1b",
+  "1c",
+  "1r",
+  "2a",
+  "2b",
+  "2r",
+  "3a",
+  "3b",
+  "3r",
+  "4a",
+  "4b",
+  "4c",
+  "4r",
+  "5a",
+  "5b",
+  "5r",
+  "6a",
+  "6b",
+  "6r",
+  "7a",
+  "7b",
+  "7r",
+];
 export function hitungKumuhRtAkhir(investasi, kumuhRTAwal, headerRT) {
-  const kriteriaid = [
-    "1a",
-    "1b",
-    "1c",
-    "1r",
-    "2a",
-    "2b",
-    "2r",
-    "3a",
-    "3b",
-    "3r",
-    "4a",
-    "4b",
-    "4c",
-    "4r",
-    "5a",
-    "5b",
-    "5r",
-    "6a",
-    "6b",
-    "6r",
-    "7a",
-    "7b",
-    "7r",
-  ];
   // kumuh akhir = kumuh awal - investasi
   let kumuhRTAkhir = [];
   kumuhRTAkhir["kawasan"] = kumuhRTAwal.kawasan;

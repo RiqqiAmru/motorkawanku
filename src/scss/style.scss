@@ -24,3 +24,11 @@
 #map2 {
   height: 15rem;
 }
+
+#b-override .link {
+  color: #0d6efd;
+}
+#b-override .link:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}

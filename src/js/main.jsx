@@ -1,5 +1,3 @@
-import trash from "../../public/trash.svg";
-import edit from "../../public/edit.svg";
 import { hitungKumuhRtAkhir } from "./rumus";
 import { createRoot } from "react-dom/client";
 import React from "react";
@@ -26,25 +24,28 @@ import {
   getDataInvestasi,
   hapusDataInvestasi,
 } from "./indexedDB";
-import "leaflet";
-import "./leafletMap";
+
 import TabelKumuhAwalAkhir from "./component/TabelKumuhAwalAkhir";
 import { createPolygon } from "./leafletMap";
+import App from "./component/App";
 
 document.addEventListener("DOMContentLoaded", load);
 const domNode = document.getElementById("kumuh-akhir-tab-pane");
 const tabKumuhAkhir = createRoot(domNode);
 
+const app = document.getElementById("app");
+const root = createRoot(app);
+root.render(<App />);
+
 function load() {
   dataToElement("provinsi", kota.provinsi);
   dataToElement("kota", kota.kota);
   dataToElement("kecamatan", kecamatan[0].wilayah);
-
   let elKelurahan = document.getElementById("kelurahan");
   kecamatan.forEach((k) => {
     let el = document.createElement("li");
     el.innerHTML = k.kawasan;
-    el.classList.add("text-primary");
+    el.classList.add("link");
     el.addEventListener("click", () => loadKumuhKawasan(k, el));
     elKelurahan.appendChild(el);
   });
@@ -70,7 +71,7 @@ function loadKumuhKawasan(kawasanKumuh, element) {
   rtrwKumuh.forEach((r) => {
     let el = document.createElement("li");
     el.innerHTML = r.rtrw;
-    el.classList.add("text-primary");
+    el.classList.add("link");
     el.addEventListener("click", () => loadKumuhRT(r, el, kawasanKumuh));
     elRtRw.appendChild(el);
   });
@@ -295,25 +296,3 @@ function loadPageInvestasi(tahun = 0, idRT) {
     document.hapusInvestasi = hapusInvestasi;
   }
 }
-
-// kumuh akhir podosugih 2021
-// ambil kumuh awal, investasi, dan header rt
-const headerKawasan = kecamatan.find((k) => k.kawasan === "Podosugih");
-const kumuhKawasanAwal = kumuhKawasan.find(
-  (k) => k.kawasan === headerKawasan.id && k.tahun === 2020
-);
-const headerRT = rtrw.filter((r) => r.kawasan === headerKawasan.id);
-const kumuhRTAwal = kumuhRT.filter(
-  (k) => k.kawasan === headerKawasan.id && k.tahun === 2020
-);
-const investasiPodosugih = investasi.filter(
-  (i) => i.idKawasan === headerKawasan.id && i.tahun === 2021
-);
-
-const semuaKumuhRTAkhir = [];
-kumuhRTAwal.forEach((rt) => {
-  let satuRT = headerRT.find((r) => r.id === rt.rt);
-  let rtAkhir = hitungKumuhRtAkhir(investasiPodosugih, rt, satuRT);
-  semuaKumuhRTAkhir.push(rtAkhir);
-});
-console.log(semuaKumuhRTAkhir);
