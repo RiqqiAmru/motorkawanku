@@ -25,12 +25,18 @@ const kriteriaid = [
   "7b",
   "7r",
 ];
-export function hitungKumuhRtAkhir(investasi, kumuhRTAwal, headerRT) {
+export function hitungKumuhRtAkhir(
+  investasi,
+  kumuhRTAwal,
+  headerRT,
+  tahun = 0
+) {
   // kumuh akhir = kumuh awal - investasi
   let kumuhRTAkhir = [];
   kumuhRTAkhir["kawasan"] = kumuhRTAwal.kawasan;
   kumuhRTAkhir["rt"] = kumuhRTAwal.rt;
-  kumuhRTAkhir["tahun"] = new Date().getFullYear();
+  if (tahun != 0) kumuhRTAkhir["tahun"] = tahun;
+  else kumuhRTAkhir["tahun"] = new Date().getFullYear();
 
   // map investasi menjadi total volume per kriteria
   let dataVolume = [];
@@ -140,4 +146,54 @@ function hitungTingkatKekumuhan(nilai) {
   else return "TK";
 }
 
+function hitungProsenDanNilai(volume, headerRT, tahun = 0) {
+  let kumuhRTAkhir = [];
+  kumuhRTAkhir["kawasan"] = volume.kawasan;
+  kumuhRTAkhir["rt"] = volume.rt;
+  if (tahun != 0) kumuhRTAkhir["tahun"] = tahun;
+  else kumuhRTAkhir["tahun"] = new Date().getFullYear();
+  kumuhRTAkhir["totalNilai"] = 0;
+  let rata = [];
+  let totalRata = [];
+  kriteriaid.forEach((id) => {
+    if (id[1] == "r") {
+      // masukkan rata rata aspek
+      let jumlah = rata.reduce((old, late) => old + late);
+      kumuhRTAkhir[id] = jumlah / rata.length;
+      totalRata.push(kumuhRTAkhir[id]);
+      rata = [];
+    } else {
+      kumuhRTAkhir[`${id}v`] = volume[id];
+      kumuhRTAkhir[`${id}v`] < 0 ? (kumuhRTAkhir[`${id}v`] = 0) : "";
+      // hitung p dan n
+      kumuhRTAkhir[`${id}p`] = hitungProsenKumuh(
+        kumuhRTAkhir[`${id}v`],
+        id,
+        headerRT
+      );
+      kumuhRTAkhir[`${id}n`] = hitungNilaiKumuh(kumuhRTAkhir[`${id}p`]);
+
+      kumuhRTAkhir["totalNilai"] += parseInt(kumuhRTAkhir[`${id}n`]);
+      rata.push(kumuhRTAkhir[`${id}p`]);
+    }
+  });
+  kumuhRTAkhir["tingkatKekumuhan"] = hitungTingkatKekumuhan(
+    kumuhRTAkhir["totalNilai"]
+  );
+  kumuhRTAkhir["ratarataKekumuhan"] =
+    totalRata.reduce((a, b) => a + b) / totalRata.length;
+  // kontribusi penanganan
+  kumuhRTAkhir["kontribusiPenanganan"] = 0;
+  kumuhRTAkhir["kontribusiPenanganan"] > 1
+    ? (kumuhRTAkhir["kontribusiPenanganan"] = 1)
+    : "";
+  return kumuhRTAkhir;
+}
+
 export default hitungKumuhRtAkhir;
+export {
+  hitungProsenKumuh,
+  hitungNilaiKumuh,
+  hitungTingkatKekumuhan,
+  hitungProsenDanNilai,
+};
