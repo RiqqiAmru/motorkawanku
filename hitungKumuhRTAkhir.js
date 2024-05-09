@@ -27,9 +27,12 @@ let investasi = utils.sheet_to_json(workbook.Sheets[wsname]);
 wsname = workbook.SheetNames[7];
 let volume = utils.sheet_to_json(workbook.Sheets[wsname]);
 
-const headerKawasan = kecamatan.find((k) => k.kawasan === "Bendan Kergon");
+const headerKawasan = kecamatan.find((k) => k.kawasan === "Jenggot");
+console.log(kecamatan);
 const headerRT = rtrw.filter((r) => r.kawasan === headerKawasan.id);
-let investasiKawasan = investasi.filter((i) => i.idKawasan === 5);
+let investasiKawasan = investasi.filter(
+  (i) => i.idKawasan === headerKawasan.id
+);
 
 let kumuhKawasan = [];
 let kumuhRT = [];
@@ -55,7 +58,7 @@ let kriteria = [
   "7b",
 ];
 let totalVolume = [];
-totalVolume["kawasan"] = 5;
+totalVolume["kawasan"] = headerKawasan.id;
 volume.forEach((v) => {
   let satuRT = headerRT.find((r) => r.id === v.rt);
   let rtAkhir = hitungProsenDanNilai(v, satuRT, 2019);
