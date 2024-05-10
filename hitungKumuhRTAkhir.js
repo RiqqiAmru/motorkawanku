@@ -27,7 +27,7 @@ let investasi = utils.sheet_to_json(workbook.Sheets[wsname]);
 wsname = workbook.SheetNames[7];
 let volume = utils.sheet_to_json(workbook.Sheets[wsname]);
 
-const headerKawasan = kecamatan.find((k) => k.kawasan === "Panjang Wetan");
+const headerKawasan = kecamatan.find((k) => k.kawasan === "Krapyak");
 console.log(kecamatan);
 const headerRT = rtrw.filter((r) => r.kawasan === headerKawasan.id);
 let investasiKawasan = investasi.filter(
