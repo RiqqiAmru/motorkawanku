@@ -56,16 +56,16 @@ function saveDataInvestasi(data, db) {
   }
 }
 
-async function getDataInvestasi(d) {
+function getDataInvestasi(d) {
   return new Promise((resolve, reject) => {
     let transaction = d.transaction(["investasi"], "readonly");
     let objectStore = transaction.objectStore("investasi");
     let request = objectStore.getAll();
     request.onsuccess = function (event) {
-      return request.result;
+      resolve(request.result);
     };
     request.onerror = function (event) {
-      console.log("error : tidak bisa mengambil data investasi");
+      reject("error : tidak bisa mengambil data investasi");
     };
   });
 }
@@ -83,7 +83,7 @@ async function getDataInvestasiByKumuhRT(idKumuhRT) {
   });
 }
 
-async function hapusDataInvestasi(id) {
+async function hapusDataInvestasi(id, db) {
   return new Promise((resolve, reject) => {
     let transaction = db.transaction(["investasi"], "readwrite");
     let objectStore = transaction.objectStore("investasi");

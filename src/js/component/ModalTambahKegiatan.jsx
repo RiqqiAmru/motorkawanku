@@ -6,7 +6,7 @@ import {
   saveDataInvestasi,
 } from "../indexedDB";
 import { KumuhTerpilih } from "./App";
-const ModalTambahKegiatan = () => {
+const ModalTambahKegiatan = ({ loadRTKumuh }) => {
   const kumuhTerpilih = useContext(KumuhTerpilih);
   // cek button mana yang trigger modal
   useEffect(() => {
@@ -43,7 +43,7 @@ const ModalTambahKegiatan = () => {
         }
 
         // update modal content
-        const inputKriteria = modalInvestasi.querySelector("#kriteria");
+        const inputKriteria = modalInvestasi.querySelector("#idKriteria");
         inputKriteria.value = kriteria;
         const modalTitle = modalInvestasi.querySelector(".modal-title");
         modalTitle.textContent = `${title} Data`;
@@ -64,38 +64,7 @@ const ModalTambahKegiatan = () => {
         formInvestasi.reset();
         formInvestasi.querySelector("#id").value = "";
       });
-
-      // tambah data
-      // const formInvestasi = modalInvestasi.querySelector("form");
-      // formInvestasi.addEventListener("submit", (event) => {
-      //   event.preventDefault();
-      //   const formData = new FormData(formInvestasi);
-      //   let data = {};
-      //   formData.forEach((value, key) => {
-      //     data[key] = value;
-      //   });
-      //   data["idKumuhRT"] = kumuhTerpilih.r.id;
-      //   data["anggaran"] = data["anggaran"] * 1000;
-      //   // save data to indexed db
-      //   saveDataInvestasi(data);
-      //   formInvestasi.reset();
-      //   modalInvestasi.querySelector(".btn-close").click();
-      // });
     }
-
-    // hapus data investasi
-    async function hapusInvestasi(id) {
-      // tampilkan modal hapusData
-      $("#hapusData")
-        .find(".btn-danger")
-        .on("click", async () => {
-          hapusDataInvestasi(id);
-          Modal.getOrCreateInstance($("#hapusData")[0]).hide();
-        });
-      Modal.getOrCreateInstance($("#hapusData")[0]).show();
-    }
-    // define hapusData
-    document.hapusInvestasi = hapusInvestasi;
   }, []);
 
   async function handleSubmit(event) {
@@ -107,9 +76,11 @@ const ModalTambahKegiatan = () => {
     });
     data["anggaran"] = data["anggaran"] * 1000;
     data["idRT"] = kumuhTerpilih.r.id;
+    data["idKawasan"] = kumuhTerpilih.r.kawasan;
     // save data to indexed db
     const db = await bukaDatabase();
     saveDataInvestasi(data, db);
+    loadRTKumuh(kumuhTerpilih.r, kumuhTerpilih.tahun);
     event.target.reset();
     document
       .getElementById("modalInvestasi")
@@ -139,7 +110,7 @@ const ModalTambahKegiatan = () => {
             ></button>
           </div>
           <form onSubmit={handleSubmit} action="POST">
-            <input type="hidden" name="kriteria" id="kriteria" />
+            <input type="hidden" name="idKriteria" id="idKriteria" />
             <input type="hidden" name="id" id="id" />
             <div className="modal-body" id="modalInvestasiBody">
               <div className="input-group mb-3">

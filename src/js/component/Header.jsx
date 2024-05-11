@@ -30,14 +30,14 @@ const Header = ({
       return;
     }
     const k = kawasan.find((k) => k.id === parseInt(e.target.value));
-    loadKawasanKumuh(k);
+    loadKawasanKumuh(k, tahun);
   }
   function handleOnChangeRT(e) {
     if (parseInt(e.target.value) === 0) return;
     const r = kawasanKumuh.semuaRT.find(
       (r) => r.id === parseInt(e.target.value)
     );
-    loadRTKumuh(r);
+    loadRTKumuh(r, tahun);
   }
 
   return (
