@@ -3,7 +3,7 @@ import Baseline from "./Baseline";
 import Investasi from "./Investasi";
 import KumuhAkhir from "./KumuhAkhir";
 
-const TabPane = ({ children, tahun }) => {
+const TabPane = ({ children, tahun, loadRTKumuh }) => {
   return (
     <>
       <ul className="nav nav-tabs mb-2" id="myTab" role="tablist">
@@ -53,7 +53,7 @@ const TabPane = ({ children, tahun }) => {
 
       <div className="tab-content" id="myTabContent">
         <Baseline></Baseline>
-        <Investasi tahun={tahun}></Investasi>
+        <Investasi tahun={tahun} loadRTKumuh={loadRTKumuh}></Investasi>
         <KumuhAkhir></KumuhAkhir>
       </div>
     </>
