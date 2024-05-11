@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { saveDataInvestasi, hapusDataInvestasi } from "../indexedDB";
+import { kegiatanInvestasi } from "../loadData";
+import { KumuhTerpilih } from "./App";
 
 const data = [
   {
@@ -109,7 +112,8 @@ const data = [
   },
 ];
 
-const Investasi = () => {
+const Investasi = ({ tahun }) => {
+  const kumuhTerpilih = useContext(KumuhTerpilih);
   return (
     <div
       className="tab-pane fade "
@@ -130,7 +134,7 @@ const Investasi = () => {
                 <th>SATUAN</th>
                 <th>SUMBER ANGGARAN</th>
                 <th>ANGGARAN</th>
-                <th>AKSI</th>
+                {tahun == new Date().getFullYear() ? <th>AKSI</th> : null}
               </tr>
             </thead>
             <tbody>
@@ -140,7 +144,12 @@ const Investasi = () => {
                     {d.aspekSpan ? (
                       <th rowSpan={d.aspekSpan}>{d.aspek}</th>
                     ) : null}
-                    <td>{d.kriteria}</td>
+                    <td>
+                      {d.kriteria}
+                      {tahun == new Date().getFullYear() && kumuhTerpilih.r ? (
+                        <ButtonTambahKegiatan kriteria={d.id} />
+                      ) : null}
+                    </td>
                     {d.kegiatan ? (
                       <td>{d.kegiatan}</td>
                     ) : (
@@ -148,7 +157,10 @@ const Investasi = () => {
                         className="text-center fst-italic text-danger"
                         colSpan={7}
                       >
-                        belum ada penanganan
+                        {tahun == new Date().getFullYear()
+                          ? "Belum "
+                          : "Tidak "}
+                        ada penanganan
                       </td>
                     )}
                   </>
@@ -162,3 +174,21 @@ const Investasi = () => {
   );
 };
 export default Investasi;
+
+const ButtonTambahKegiatan = ({ kriteria }) => {
+  return (
+    <>
+      <br />
+      <button
+        type="button"
+        className="btn btn-outline-primary tambahInvestasiBtn"
+        data-bs-toggle="modal"
+        data-bs-target="#modalInvestasi"
+        data-bs-type="Tambah"
+        data-bs-kriteria={kriteria}
+      >
+        Tambah Investasi
+      </button>
+    </>
+  );
+};

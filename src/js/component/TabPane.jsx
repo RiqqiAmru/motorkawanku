@@ -3,7 +3,7 @@ import Baseline from "./Baseline";
 import Investasi from "./Investasi";
 import KumuhAkhir from "./KumuhAkhir";
 
-const TabPane = ({ children, clickAwalAkhir }) => {
+const TabPane = ({ children, tahun }) => {
   return (
     <>
       <ul className="nav nav-tabs mb-2" id="myTab" role="tablist">
@@ -17,7 +17,6 @@ const TabPane = ({ children, clickAwalAkhir }) => {
             role="tab"
             aria-controls="baseline-tab-pane"
             aria-selected="true"
-            onClick={() => clickAwalAkhir("awal")}
           >
             Baseline
           </button>
@@ -32,7 +31,6 @@ const TabPane = ({ children, clickAwalAkhir }) => {
             role="tab"
             aria-controls="investasi-tab-pane"
             aria-selected="false"
-            onClick={() => clickAwalAkhir("akhir")}
           >
             investasi
           </button>
@@ -47,7 +45,6 @@ const TabPane = ({ children, clickAwalAkhir }) => {
             role="tab"
             aria-controls="kumuh-akhir-tab-pane"
             aria-selected="false"
-            onClick={() => clickAwalAkhir("akhir")}
           >
             Kumuh Akhir
           </button>
@@ -56,8 +53,8 @@ const TabPane = ({ children, clickAwalAkhir }) => {
 
       <div className="tab-content" id="myTabContent">
         <Baseline></Baseline>
-        <Investasi></Investasi>
-        {/* <KumuhAkhir></KumuhAkhir> */}
+        <Investasi tahun={tahun}></Investasi>
+        <KumuhAkhir></KumuhAkhir>
       </div>
     </>
   );

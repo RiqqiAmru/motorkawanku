@@ -9,7 +9,7 @@ const Header = ({
   handleTahun,
   tahun,
 }) => {
-  let luasVerifikasi = 0;
+  let luasVerifikasi = null;
   let jumlahBangunan = 0;
   let jumlahPenduduk = 0;
   let jumlahKK = 0;
@@ -23,6 +23,21 @@ const Header = ({
     jumlahBangunan = kawasanKumuh.r.jumlahBangunan;
     jumlahPenduduk = kawasanKumuh.r.jumlahPenduduk;
     jumlahKK = kawasanKumuh.r.jumlahKK;
+  }
+
+  function handleOnChangeKawasan(e) {
+    if (parseInt(e.target.value) === 0) {
+      return;
+    }
+    const k = kawasan.find((k) => k.id === parseInt(e.target.value));
+    loadKawasanKumuh(k);
+  }
+  function handleOnChangeRT(e) {
+    if (parseInt(e.target.value) === 0) return;
+    const r = kawasanKumuh.semuaRT.find(
+      (r) => r.id === parseInt(e.target.value)
+    );
+    loadRTKumuh(r);
   }
 
   return (
@@ -46,50 +61,32 @@ const Header = ({
             <tr>
               <th>Kelurahan</th>
               <td>
-                <ol className="pl-3 mb-0">
+                <select
+                  className="form-select"
+                  aria-label="Default select example"
+                  onChange={handleOnChangeKawasan}
+                >
+                  <option value="0">Pilih Kawasan</option>
                   {kawasan.map((kec, i) => (
-                    <li
-                      key={"kel" + i}
-                      className="link "
-                      onClick={() => loadKawasanKumuh(kec)}
-                    >
-                      <span
-                        className={
-                          kawasanKumuh.k && kawasanKumuh.k.id === kec.id
-                            ? "selected"
-                            : ""
-                        }
-                      >
-                        {kec.kawasan}
-                      </span>
-                    </li>
+                    <option key={"kel" + i} value={kec.id}>
+                      {kec.kawasan}
+                    </option>
                   ))}
-                </ol>
+                </select>
               </td>
             </tr>
             <tr>
               <th>Wilayah RT/RW</th>
               <td>
-                <ol className="pl-3 mb-0">
+                <select className="form-select" onChange={handleOnChangeRT}>
+                  <option value={0}>Pilih RT/RW</option>
                   {kawasanKumuh.semuaRT &&
                     kawasanKumuh.semuaRT.map((r, i) => (
-                      <li
-                        key={"rtrw" + i}
-                        className="link"
-                        onClick={() => loadRTKumuh(r)}
-                      >
-                        <span
-                          className={
-                            kawasanKumuh.r && kawasanKumuh.r.id === r.id
-                              ? "selected"
-                              : ""
-                          }
-                        >
-                          {r.rtrw}
-                        </span>
-                      </li>
+                      <option key={"rtrw" + i} value={r.id}>
+                        {r.rtrw}
+                      </option>
                     ))}
-                </ol>
+                </select>
               </td>
             </tr>
           </tbody>

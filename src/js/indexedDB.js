@@ -29,7 +29,7 @@ function bukaDatabase() {
  * @description save data investasi to indexed db
  * @param {*} data
  */
-function saveDataInvestasi(data) {
+function saveDataInvestasi(data, db) {
   let transaction = db.transaction(["investasi"], "readwrite");
   let objectStore = transaction.objectStore("investasi");
   if (data.id) {

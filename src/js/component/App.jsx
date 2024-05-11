@@ -13,6 +13,7 @@ import {
   kumuhKawasan,
   kumuhRT,
   latlng,
+  semuaInvestasi,
 } from "../loadData";
 import Title from "./Title";
 import Card from "./Card";
@@ -20,30 +21,40 @@ import Header from "./Header";
 import LeafletMap from "./LeafletMap";
 import TabPane from "./TabPane";
 import hitungKumuhRtAkhir from "../rumus";
+import ModalTambahKegiatan from "./ModalTambahKegiatan";
+import AlertToast from "./AlertToast";
 
 const DataKumuh = createContext(null);
 
 const App = () => {
   const [kumuhTerpilih, setKumuhTerpilih] = useState([]);
   const [coordinate, setCoordinate] = useState([]);
-  const [awalAkhir, setAwalAkhir] = useState("awal");
   const [tahun, setTahun] = useState(2024);
   const [investasi, setInvestasi] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const db = await bukaDatabase();
-      const data = await getDataInvestasi(db);
-      setInvestasi(data);
-    };
-    fetchData();
-  }, []);
+    if (tahun === new Date().getFullYear()) {
+      const fetchData = async () => {
+        const db = await bukaDatabase();
+        const data = await getDataInvestasi(db);
+        setInvestasi(data);
+      };
+      fetchData();
+    }
+    if (kumuhTerpilih.kumuh === "k") {
+      LoadKawasanKumuh(kumuhTerpilih.k);
+    } else if (kumuhTerpilih.kumuh === "r") {
+      loadRTKumuh(kumuhTerpilih.r);
+    }
+    console.log("state investasi", investasi);
+  }, [tahun]);
 
   return (
     <StrictMode>
       <Suspense fallback={<div>Loading...</div>}>
         <DataKumuh.Provider value={kumuhTerpilih}>
           <div className="boxed_wrapper">
+            <AlertToast></AlertToast>
             <Title></Title>
             <Card>
               <Header
@@ -56,8 +67,9 @@ const App = () => {
                 tahun={tahun}
               ></Header>
               <LeafletMap coordinate={coordinate}></LeafletMap>
-              <TabPane clickAwalAkhir={clickAwalAkhir}></TabPane>
+              <TabPane tahun={tahun}></TabPane>
             </Card>
+            <ModalTambahKegiatan></ModalTambahKegiatan>
           </div>
         </DataKumuh.Provider>
       </Suspense>
@@ -66,49 +78,50 @@ const App = () => {
 
   function handleTahun(t) {
     setTahun(t);
-    if (kumuhTerpilih.kumuh === "k") {
-      LoadKawasanKumuh(kumuhTerpilih.k);
-      console.log(kumuhTerpilih.dataKumuh);
-    } else if (kumuhTerpilih.kumuh === "r") {
-      loadRTKumuh(kumuhTerpilih.r);
-      console.log(kumuhTerpilih.dataKumuh);
-    }
-  }
-
-  function clickAwalAkhir(awalAkhir) {
-    setAwalAkhir(awalAkhir);
   }
 
   function LoadKawasanKumuh(k) {
     const semuaRT = rtrw.filter((r) => r.kawasan === k.id);
     let kumuhAkhir = kumuhKawasan.find(
-      (k) => k.kawasan === k.id && k.tahun === tahun
+      (kumuh) => kumuh.kawasan === k.id && kumuh.tahun === tahun
     );
-    console.log(tahun);
     const dataKumuh = kumuhKawasan.find(
       (kumuh) => kumuh.kawasan === k.id && kumuh.tahun === tahun - 1
     );
-
     if (tahun === new Date().getFullYear()) {
+      // kumuh akhir
       kumuhAkhir = hitungKumuhRtAkhir(investasi, dataKumuh, k);
+    } else {
+      // investasi
+      const investasiKawasan = semuaInvestasi.filter(
+        (inv) => inv.idKawasan === k.id && inv.tahun === tahun
+      );
+      setInvestasi(investasiKawasan);
     }
 
     setKumuhTerpilih({ k, semuaRT, kumuh: "k", dataKumuh, kumuhAkhir });
-    if (awalAkhir === "awal") {
-      cariCoordinate(k.kawasan, "", dataKumuh.tingkatKekumuhan);
-    } else if (awalAkhir === "akhir") {
-      cariCoordinate(k.kawasan, "", kumuhAkhir.tingkatKekumuhan);
-    }
+    cariCoordinate(k.kawasan, "", dataKumuh.tingkatKekumuhan, tahun);
   }
   function loadRTKumuh(r) {
     const dataKumuh = kumuhRT.find(
       (kumuh) => kumuh.rt === r.id && kumuh.tahun === tahun - 1
     );
-    let kumuhAkhir = kumuhRT.find((r) => r.rt === r.id && r.tahun === tahun);
+    let kumuhAkhir = kumuhRT.find(
+      (kumuh) => kumuh.rt === r.id && kumuh.tahun === tahun
+    );
     if (tahun === new Date().getFullYear()) {
+      // kumuh Akhir
       kumuhAkhir = hitungKumuhRtAkhir(investasi, dataKumuh, r);
+    } else {
+      // investasi
+      const investasiRT = semuaInvestasi.filter(
+        (inv) =>
+          inv.idRTRW === r.id &&
+          inv.tahun === tahun &&
+          inv.idKawasan === r.kawasan
+      );
+      setInvestasi(investasiRT);
     }
-
     setKumuhTerpilih({
       r,
       semuaRT: kumuhTerpilih.semuaRT,
@@ -117,32 +130,32 @@ const App = () => {
       dataKumuh,
       kumuhAkhir,
     });
-    if (awalAkhir === "awal") {
-      cariCoordinate(
-        kumuhTerpilih.k.kawasan,
-        r.rtrw,
-        dataKumuh.tingkatKekumuhan
-      );
-    } else if (awalAkhir === "akhir") {
-      cariCoordinate(
-        kumuhTerpilih.k.kawasan,
-        r.rtrw,
-        kumuhAkhir.tingkatKekumuhan
-      );
-    }
+    cariCoordinate(
+      kumuhTerpilih.k.kawasan,
+      r.rtrw,
+      dataKumuh.tingkatKekumuhan,
+      tahun
+    );
   }
 
-  function cariCoordinate(kelurahan, rtrw = "", tingkatKekumuhan) {
+  function cariCoordinate(kelurahan, rtrw = "", tingkatKekumuhan, tahun) {
     let kel = [];
     if (rtrw == "") {
       kel = latlng.find((k) => k.kelurahan === kelurahan);
-      kel["description"] = kelurahan + " - " + tingkatKumuh(tingkatKekumuhan);
+      kel["description"] =
+        kelurahan + " - " + tingkatKumuh(tingkatKekumuhan) + " - " + tahun;
     } else {
       kel = latlng.find(
         (k) => k.kelurahan === kelurahan && k.kodeRTRW === rtrw
       );
       kel["description"] =
-        kelurahan + " - " + rtrw + " - " + tingkatKumuh(tingkatKekumuhan);
+        kelurahan +
+        " - " +
+        rtrw +
+        " - " +
+        tingkatKumuh(tingkatKekumuhan) +
+        " - " +
+        tahun;
     }
     kel["color"] = tentukanWarna(tingkatKekumuhan);
     setCoordinate(kel);

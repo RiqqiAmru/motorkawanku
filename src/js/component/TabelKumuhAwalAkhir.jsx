@@ -1,7 +1,5 @@
-import React, { useContext, useEffect } from "react";
-import { bukaDatabase, getDataInvestasi } from "../indexedDB";
+import React, { useContext } from "react";
 import { decimaltoPercent, pembulatanDesimal } from "../util";
-import hitungKumuhRTAkhir from "../rumus";
 import { KumuhTerpilih } from "./App";
 
 const data = [
@@ -150,7 +148,6 @@ function TabelKumuhAwalAkhir({}) {
 
   kumuhRTawal = kumuhTerpilih.dataKumuh && kumuhTerpilih.dataKumuh;
   kumuhRTAkhir = kumuhTerpilih.kumuhAkhir && kumuhTerpilih.kumuhAkhir;
-
   return (
     <>
       {kumuhTerpilih.dataKumuh && (

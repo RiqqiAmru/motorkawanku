@@ -12,7 +12,7 @@ import {
   kegiatanInvestasi,
   aspekKumuh as kriteriaAspekKumuh,
   latlng,
-  investasi,
+  semuaInvestasi as investasi,
 } from "./loadData";
 import { loadBodyTableInvestasi as loadTabelInvestasi } from "./loadTable";
 import { styleSelected, dataToElement, decimaltoPercent } from "./util";
