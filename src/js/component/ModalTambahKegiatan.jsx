@@ -24,24 +24,6 @@ const ModalTambahKegiatan = ({ loadRTKumuh }) => {
           a.kriteria.find((k) => k === kriteria)
         );
 
-        // if edit, get data from button
-        if (title === "Edit") {
-          const id = button.getAttribute("data-bs-id");
-          const kegiatan = button.getAttribute("data-bs-kegiatan");
-          const volume = button.getAttribute("data-bs-volume");
-          const satuan = button.getAttribute("data-bs-satuan");
-          const sumberAnggaran = button.getAttribute("data-bs-sumberAnggaran");
-          const anggaran = button.getAttribute("data-bs-anggaran");
-
-          const formInvestasi = modalInvestasi.querySelector("form");
-          formInvestasi.querySelector("#id").value = id;
-          formInvestasi.querySelector("#kegiatan").value = kegiatan;
-          formInvestasi.querySelector("#volume").value = volume;
-          formInvestasi.querySelector("#satuan").value = satuan;
-          formInvestasi.querySelector("#sumberAnggaran").value = sumberAnggaran;
-          formInvestasi.querySelector("#anggaran").value = anggaran;
-        }
-
         // update modal content
         const inputKriteria = modalInvestasi.querySelector("#idKriteria");
         inputKriteria.value = kriteria;
@@ -57,6 +39,24 @@ const ModalTambahKegiatan = ({ loadRTKumuh }) => {
         });
         const satuan = modalInvestasi.querySelector("#satuan");
         satuan.value = kegiatan.satuan;
+
+        // if edit, get data from button
+        if (title === "Edit") {
+          const id = button.getAttribute("data-bs-id");
+          const kegiatanEdit = button.getAttribute("data-bs-kegiatan");
+          const volume = button.getAttribute("data-bs-volume");
+          const satuan = button.getAttribute("data-bs-satuan");
+          const sumberAnggaran = button.getAttribute("data-bs-sumber-anggaran");
+          const anggaran = button.getAttribute("data-bs-anggaran");
+
+          const formInvestasi = modalInvestasi.querySelector("form");
+          formInvestasi.querySelector("#id").value = id;
+          formInvestasi.querySelector("#kegiatan").value = kegiatanEdit;
+          formInvestasi.querySelector("#volume").value = volume;
+          formInvestasi.querySelector("#satuan").value = satuan;
+          formInvestasi.querySelector("#sumberAnggaran").value = sumberAnggaran;
+          formInvestasi.querySelector("#anggaran").value = anggaran;
+        }
       });
 
       modalInvestasi.addEventListener("hide.bs.modal", (event) => {
@@ -75,7 +75,7 @@ const ModalTambahKegiatan = ({ loadRTKumuh }) => {
       data[key] = value;
     });
     data["anggaran"] = data["anggaran"] * 1000;
-    data["idRT"] = kumuhTerpilih.r.id;
+    data["idRTRW"] = kumuhTerpilih.r.id;
     data["idKawasan"] = kumuhTerpilih.r.kawasan;
     // save data to indexed db
     const db = await bukaDatabase();

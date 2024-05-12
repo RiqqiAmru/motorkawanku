@@ -134,7 +134,7 @@ const App = () => {
       bukaDatabase().then((db) => {
         getDataInvestasi(db).then((data) => {
           const investasi = data.filter(
-            (inv) => inv.idRT === r.id && inv.idKawasan === r.kawasan
+            (inv) => inv.idRTRW === r.id && inv.idKawasan === r.kawasan
           );
           setKumuhTerpilih({
             r,

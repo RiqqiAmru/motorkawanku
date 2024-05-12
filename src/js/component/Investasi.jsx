@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { KumuhTerpilih } from "./App";
 import { hapusDataInvestasi, bukaDatabase } from "../indexedDB";
 import trash from "../../../public/trash.svg";
+import edit from "../../../public/edit.svg";
 import $ from "jquery";
 import { Modal } from "bootstrap";
 
@@ -136,8 +137,8 @@ const Investasi = ({ tahun, loadRTKumuh }) => {
     kumuhTerpilih.investasi.forEach((inv) => {
       const index = data.findIndex((d) => d.id === inv.idKriteria);
       if (index !== -1) {
-        if (!data[index].kegiatan) {
-          data[index] = { ...inv, ...data[index] };
+        if (!data[index].inv) {
+          data[index] = { inv, ...data[index] };
         } else {
           // menambahkan rowspan di data sebelumnya
           if (!data[index].aspekSpan) {
@@ -150,7 +151,7 @@ const Investasi = ({ tahun, loadRTKumuh }) => {
           }
           data[index].kriteriaSpan = data[index].kriteriaSpan + 1;
           let satuan = data[index].satuan;
-          data.splice(index + 1, 0, { ...inv, satuan });
+          data.splice(index + 1, 0, { inv, satuan });
         }
       }
     });
@@ -196,17 +197,23 @@ const Investasi = ({ tahun, loadRTKumuh }) => {
                         ) : null}
                       </td>
                     ) : null}
-                    {d.kegiatan ? (
+                    {d.inv ? (
                       <>
-                        <td>{d.kegiatan}</td>
-                        <td>{d.volume}</td>
+                        <td>{d.inv.kegiatan}</td>
+                        <td>{d.inv.volume}</td>
                         <td>{d.satuan}</td>
-                        <td>{d.sumberAnggaran}</td>
-                        <td>{d.anggaran}</td>
+                        <td>{d.inv.sumberAnggaran}</td>
+                        <td>{d.inv.anggaran}</td>
                         {tahun == new Date().getFullYear() &&
                         kumuhTerpilih.r ? (
                           <TdBtnEditHapus
-                            id={d.id}
+                            idKegiatan={d.inv.id}
+                            idKriteria={d.inv.idKriteria}
+                            kegiatan={d.inv.kegiatan}
+                            volume={d.inv.volume}
+                            satuan={d.satuan}
+                            sumberAnggaran={d.inv.sumberAnggaran}
+                            anggaran={d.inv.anggaran}
                             loadRTKumuh={loadRTKumuh}
                           ></TdBtnEditHapus>
                         ) : null}
@@ -252,14 +259,23 @@ const ButtonTambahKegiatan = ({ kriteria }) => {
   );
 };
 
-const TdBtnEditHapus = ({ id, loadRTKumuh }) => {
+const TdBtnEditHapus = ({
+  idKegiatan,
+  loadRTKumuh,
+  idKriteria,
+  kegiatan,
+  volume,
+  satuan,
+  sumberAnggaran,
+  anggaran,
+}) => {
   const kumuhTerpilih = useContext(KumuhTerpilih);
   function handleBtnHapus() {
     $("#hapusData")
       .find(".btn-danger")
       .on("click", async () => {
         const db = await bukaDatabase();
-        hapusDataInvestasi(id, db);
+        hapusDataInvestasi(idKegiatan, db);
         loadRTKumuh(kumuhTerpilih.r, kumuhTerpilih.tahun);
         Modal.getOrCreateInstance($("#hapusData")[0]).hide();
       });
@@ -270,12 +286,35 @@ const TdBtnEditHapus = ({ id, loadRTKumuh }) => {
       <button
         type="button"
         className="btn btn-outline-danger btn-sm"
-        onClick={() => handleBtnHapus(id)}
+        onClick={() => handleBtnHapus(idKegiatan)}
       >
         <img
           src={trash}
           className="text-white"
           alt="delete"
+          width={20}
+          height={20}
+        />
+      </button>
+      <button
+        type="button"
+        className="btn btn-outline-primary btn-sm"
+        data-bs-toggle="modal"
+        data-bs-target="#modalInvestasi"
+        data-bs-type="Edit"
+        data-bs-kriteria={idKriteria}
+        data-bs-id={idKegiatan}
+        data-bs-kegiatan={kegiatan}
+        data-bs-volume={volume}
+        data-bs-satuan={satuan}
+        data-bs-sumber-anggaran={sumberAnggaran}
+        data-bs-anggaran={anggaran / 1000}
+        aria-label="Edit Data Investasi"
+      >
+        <img
+          src={edit}
+          className="text-white"
+          alt="edit"
           width={20}
           height={20}
         />
