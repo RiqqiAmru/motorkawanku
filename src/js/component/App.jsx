@@ -24,6 +24,7 @@ import hitungKumuhRtAkhir from "../rumus";
 import ModalTambahKegiatan from "./ModalTambahKegiatan";
 import AlertToast from "./AlertToast";
 import ModalHapusData from "./ModalHapusData";
+import Footer from "./Footer";
 
 const DataKumuh = createContext(null);
 
@@ -59,6 +60,7 @@ const App = () => {
             ></ModalTambahKegiatan>
             <ModalHapusData></ModalHapusData>
           </div>
+          <Footer></Footer>
         </DataKumuh.Provider>
       </Suspense>
     </StrictMode>
