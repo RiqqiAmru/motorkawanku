@@ -12,8 +12,8 @@ untuk menampilkan data-data kawasan kumuh yang ada di kota pekalongan, berdasark
 
 # KEBUTUHAN FUNGSIONAL TAMBAHAN BAPPEDA
 
-- [] menampilkan total pengunjung website
-- [] menampilkan dokumen penggunaan website
+- [x] menampilkan total pengunjung website
+- [x] menampilkan dokumen penggunaan website
 - [] menampilkan contact person di website (bisa no/email kantor)
 - [] membuat video tutorial penggunaan website
 - [] dokumentasi alur kerja sebelum adanya website dan setelah adanya website
@@ -37,17 +37,10 @@ untuk menampilkan data-data kawasan kumuh yang ada di kota pekalongan, berdasark
 - [x] fitur edit data investasi
 - [x] fitur kumuh akhir & penghitungan
 - [x] leaflet js
-- [] extract data excel perkim
+- [x] extract data excel perkim
 -
-
-# error
-
-- setelah membuka laman kumuh rt (render jsx tabel awal akhir), dan setelah itu melakukan aksi di tab investasi, data tidak langsung kerender ulang,(solusi : letakkan renderan tabel awal akhir di tab bawah, jangan tab RT)
 
 # CAUTION MISCELLANEOUS
 
-- awasi batas openstreetmap
+- awasi batas openstreetmap api
 - responsive website
-- ubah semua ke react js?
-- About Motor Kawanku dan aspek2 kekumuhan
-- export ke excel

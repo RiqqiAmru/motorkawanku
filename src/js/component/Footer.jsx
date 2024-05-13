@@ -2,6 +2,7 @@ import React from "react";
 import whatssapp from "../../../public/whatsapp.svg";
 import email from "../../../public/email.svg";
 import instagram from "../../../public/instagram.svg";
+import manuals from "../../../public/MotorKawankuManuals.pdf";
 const Footer = () => {
   return (
     <div className="container">
@@ -36,7 +37,7 @@ const Footer = () => {
             </a>
           </li>
           <li className="nav-item">
-            <a href="#" className="nav-link px-2 ">
+            <a href={manuals} target="_blank" className="nav-link px-2 ">
               Manuals
             </a>
           </li>

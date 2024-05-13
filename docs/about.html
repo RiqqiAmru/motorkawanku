@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About | Motor Kawanku</title>
+    <script type="module" crossorigin src="./assets/about-Bn6ApNZr.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/whatsapp-B-Ow6lZ6.js">
+    <link rel="stylesheet" crossorigin href="./assets/whatsapp-CQWoLYhd.css">
+  </head>
+  <body>
+    <div class="container my-5">
+      <section>
+        <h1>About Motor Kawanku</h1>
+        <p>
+          Motor Kawanku adalah aplikasi web yang dibuat untuk membantu
+          masyarakat Kota Pekalongan dalam mengecek kawasan kumuh di sekitar
+          mereka. Penghitungan Kumuh didasarkan pada
+          <a
+            href="https://peraturan.bpk.go.id/Details/104649/permen-pupr-no-14prtm2018-tahun-2018"
+            target="_blank"
+          >
+            Permen PUPR No. 14/PRT/M/2018 tahun 2018 </a
+          >, didalamnya sudah secara lengkap dijelaskan mengenai aspek dan
+          kriteria kawasan kumuh.
+        </p>
+        <p>
+          Data yang didapat merupakan data dari Dinas Perumahan dan Perkawasan
+          Kumuh <strong> (DINPERKIM)</strong> Kota Pekalongan . Data Awal berupa
+          Data Excel mengenai <strong> Baseline Kumuh</strong>, yaitu data per
+          masing-masing KK yang ada di Kota Pekalongan. Data Baseline Kumuh ini
+          merupakan data yang diambil pada survey Program KOTAKU tahun 2020.
+          Data Baseline kemudian di olah menjadi data <strong>R0</strong> , yang
+          merupakan rekapan dari data Baseline Kumuh yang berubah tiap tahunnya
+          karena adanya penanganan investasi di setiap RT. Selain itu juga
+          terdapat data <strong>spasial</strong> berupa data batas RT dan
+          kawasan berbentuk KMZ.
+        </p>
+        <p>
+          Data yang ditampilkan didalam website ini merupakan data R0 dari
+          masing-masing RT dan kawasan di Kota Pekalongan dari tahun 2020-2023.
+        </p>
+      </section>
+      <section>
+        <h2>Fitur Website</h2>
+        <p>Motor Kawanku v1.0.0</p>
+        <ul>
+          <li><strong>Melihat Data Kumuh</strong></li>
+          <p>
+            Ketika diawal mengakses website Pengguna akan disuguhi tampilan Awal
+            Judul, Header Kumuh, dan peta Kota Pekalongan
+          </p>
+          <img
+            alt="awalWebsite"
+            id="tampilanAwal"
+            width="100%"
+            class="img-thumbnail mb-4"
+          />
+          <p>
+            Pengguna dapat memilih Kawasan yang mana akan langsung menampilkan
+            data kumuh dari kawasan, dan menunjukkan map spasial kawasan pada
+            tahun tersebut
+          </p>
+          <div class="row mb-4">
+            <img
+              alt="pilihKawasan"
+              id="pilihKawasan"
+              width="50%"
+              class="img-thumbnail col-md-6"
+            />
+            <img
+              alt="tampilanKawasan"
+              id="tampilanKawasan"
+              width="50%"
+              class="img-thumbnail col-md-6"
+            />
+          </div>
+          <p>
+            pengguna dapat memilih RT/RW untuk menampilkan data spesifik dari
+            masing-masing RT/RW di Kawasan Tersebut
+          </p>
+          <div class="row mb-4">
+            <img
+              alt="pilihRT"
+              id="pilihRT"
+              width="50%"
+              class="img-thumbnail col-md-6"
+            />
+            <img
+              alt="tampilanRT"
+              id="tampilanRT"
+              width="50%"
+              class="img-thumbnail col-md-6"
+            />
+          </div>
+          <p>
+            Ketika Pengguna memilih tahun maka akan menampilkan data perubahan
+            kumuh dari kawasan / RT per tahun yang dipilih
+          </p>
+          <img
+            alt="pilihTahun"
+            id="pilihTahun"
+            width="100%"
+            class="img-thumbnail"
+          />
+          <div class="row mb-4">
+            <img
+              alt="tampilanTahunAwal"
+              id="tahunAwal"
+              width="100%"
+              class="img-thumbnail col-md-6"
+            />
+            <img
+              alt="tampilanTahunAkhir"
+              id="tahunAkhir"
+              width="100%"
+              class="img-thumbnail col-md-6"
+            />
+          </div>
+          <ul>
+            <li><strong>Data Baseline</strong></li>
+            <p>
+              Data Baseline merupakan data awal dari kumuh kawasan pada awal
+              tahun
+            </p>
+            <img
+              alt="tampilanBaseline"
+              id="baseline"
+              width="100%"
+              class="img-thumbnail mb-4"
+            />
+            <li><strong>Data Investasi</strong></li>
+            <p>
+              Data investasi menampilkan Penanganan / Kegiatan yang dilakukan
+              pemerintah untuk menangani Kumuh dari Kawasan, beserta jenis
+              Kegiatan
+            </p>
+            <img
+              alt="tampilanInvestasi"
+              id="investasi"
+              width="100%"
+              class="img-thumbnail mb-4"
+            />
+            <li><strong>Data Kumuh Akhir</strong></li>
+            <p>
+              Data Kumuh Akhir Merupakan data Baseline (Awal) yang telah
+              dikurangi dengan data Penanganan Investasi
+            </p>
+            <img
+              alt="tampilanKumuhAkhir"
+              id="kumuhAkhir"
+              width="100%"
+              class="img-thumbnail mb-4"
+            />
+          </ul>
+          <li><strong>Simulasi Penanganan</strong></li>
+          <p>
+            Ketika Pengguna memilih data Kumuh RT dan Penunjuk tahun menunjukkan
+            tahun ini, maka di data Investasi akan menampilkan tampilan simulasi
+            Penangan. Tampilan ini merupakan simulasi dari Penanganan Kegiatan
+            yang akan secara live ditampilkan di Data Kumuh Akhir.
+          </p>
+          <img
+            alt="tampilanSimulasi"
+            id="simulasi"
+            width="100%"
+            class="img-thumbnail mb-4"
+          />
+          <p>
+            Data simulasi ini bersifat sementara (offline) karena hanya disimpan
+            di dalam browser masing-masing pengguna. Untuk kelanjutan dari fitur
+            ini akan didiskusikan lebih lanjut dengan pihak terkait
+          </p>
+        </ul>
+      </section>
+      <section>
+        <h2>Tim Pengembang</h2>
+        <p>
+          Projek ini merupakan Projek Magang bersama antara mahasiswa
+          <a
+            href="http://https://stmik-wp.ac.id/"
+            target="_blank"
+            alt="STMIK WP PEKALONGAN"
+            rel="noopener noreferrer"
+            >STMIK WIDYA PRATAMA PEKALONGAN</a
+          >
+          dan
+          <a href="http://" target="_blank" rel="noopener noreferrer"
+            >BAPPEDA Kota Pekalongan</a
+          >. Mahasiswa diminta untuk membuat aplikasi web dalam rangka
+          dokumentasi IGA <em>(Innovative Government Award)</em> tahun 2025
+        </p>
+        <h6>Anggota Tim</h6>
+        <div id="anggotaTim">
+          <div class="d-flex justify-content-start align-items-center">
+            <div class="col-md-3">
+              <img
+                src=""
+                alt=""
+                id="riqqi"
+                class="img-thumbnail rounded-circle object-fit-cover"
+                width="36px"
+                height="36px"
+              />
+              <strong>Muhammad Riqqi Amru </strong> - <em>21.230.0069</em>
+            </div>
+            <ul class="nav col-md-2 justify-content-end">
+              <li class="nav-item">
+                <a
+                  target="_blank"
+                  href="https://wa.me/6289527982294"
+                  class="nav-link px-2"
+                >
+                  <img src="" class="whatsapp" width="24" />
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  target="_blank"
+                  href="https://github.com/RiqqiAmru"
+                  class="nav-link px-2"
+                >
+                  <img src="" class="github" width="24" />
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  target="_blank"
+                  href="https://www.linkedin.com/in/muhammad-riqqi-amru-789156295/"
+                  class="nav-link px-2"
+                >
+                  <img src="" class="linkedin" width="24" />
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="d-flex justify-content-start align-items-center">
+            <div class="col-md-3">
+              <img
+                src=""
+                alt=""
+                class="img-thumbnail person rounded-circle"
+                width="36px"
+                height="36px"
+              />
+              <strong>Putri Azizah Catur K </strong> - <em>21.230.0109</em>
+            </div>
+            <ul class="nav col-md-2 justify-content-end">
+              <li class="nav-item">
+                <a target="_blank" href="" class="nav-link px-2">
+                  <img src="" class="whatsapp" width="24" />
+                </a>
+              </li>
+              <li class="nav-item">
+                <a target="_blank" href="" class="nav-link px-2">
+                  <img src="" class="github" width="24" />
+                </a>
+              </li>
+              <li class="nav-item">
+                <a target="_blank" href="" class="nav-link px-2">
+                  <img src="" class="linkedin" width="24" />
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="d-flex justify-content-start align-items-center">
+            <div class="col-md-3">
+              <img
+                src=""
+                alt=""
+                class="img-thumbnail person rounded-circle"
+                width="36px"
+                height="36px"
+              />
+              <strong>Novia Sulisviati </strong> - <em>21.230.0127</em>
+            </div>
+            <ul class="nav col-md-2 justify-content-end">
+              <li class="nav-item">
+                <a target="_blank" href="" class="nav-link px-2">
+                  <img src="" class="whatsapp" width="24" />
+                </a>
+              </li>
+              <li class="nav-item">
+                <a target="_blank" href="" class="nav-link px-2">
+                  <img src="" class="github" width="24" />
+                </a>
+              </li>
+              <li class="nav-item">
+                <a target="_blank" href="" class="nav-link px-2">
+                  <img src="" class="linkedin" width="24" />
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <h6 class="mt-5">Teknologi Yang digunakan</h6>
+        <div id="teknologi" class="d-flex justify-content-center gap-2">
+          <a
+            href="https://react.dev/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="https://img.icons8.com/color/144/000000/react-native.png"
+              alt="react"
+              width="50"
+              height="50"
+              class="img-thumbnail"
+            />
+          </a>
+          <a
+            href="https://leafletjs.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="https://leafletjs.com/docs/images/logo.png"
+              alt="leaflet"
+              width="160"
+              class="img-thumbnail"
+            />
+          </a>
+          <a
+            href="https://getbootstrap.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="https://img.icons8.com/color/144/000000/bootstrap.png"
+              alt="bootstrap"
+              width="50"
+              height="50"
+              class="img-thumbnail"
+            />
+          </a>
+          <a
+            href="https://sheetjs.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="https://sheetjs.com/sketch128.png"
+              alt="sheetjs"
+              width="50"
+              height="50"
+              class="img-thumbnail"
+            />
+          </a>
+          <a
+            href="https://vitejs.dev/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="https://vitejs.dev/logo.svg"
+              alt="vite"
+              width="50"
+              height="50"
+              class="img-thumbnail"
+          /></a>
+          <a
+            href="https://jquery.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="https://img.icons8.com/ios-filled/50/000000/jquery.png"
+              alt="jquery"
+              width="50"
+              height="50"
+              class="img-thumbnail"
+            />
+          </a>
+          <!-- sass -->
+          <a
+            href="https://sass-lang.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="https://img.icons8.com/color/144/000000/sass.png"
+              alt="sass"
+              width="50"
+              height="50"
+              class="img-thumbnail"
+            />
+          </a>
+        </div>
+      </section>
+    </div>
+    <div style="display: flex; justify-content: center; margin-bottom: 2px">
+      <div>
+        <a href="http://www.freevisitorcounters.com">Free Counter</a>
+        <script
+          type="text/javascript"
+          src="https://www.freevisitorcounters.com/auth.php?id=fefc95f7465dc77276987f29a378ec05e3ead1e4"
+        ></script>
+        <script
+          type="text/javascript"
+          src="https://www.freevisitorcounters.com/en/home/counter/1181354/t/10"
+        ></script>
+      </div>
+    </div>
+  </body>
+</html>
