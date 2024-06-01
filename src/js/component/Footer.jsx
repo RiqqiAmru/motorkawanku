@@ -3,6 +3,7 @@ import whatssapp from "../../../public/whatsapp.svg";
 import email from "../../../public/email.svg";
 import instagram from "../../../public/instagram.svg";
 import manuals from "../../../public/MotorKawankuManuals.pdf";
+import sop from "../../../public/sop.pdf";
 const Footer = () => {
   return (
     <div className="container">
@@ -44,6 +45,28 @@ const Footer = () => {
           <li className="nav-item">
             <a href="#" className="nav-link px-2 ">
               Tutorial
+            </a>
+          </li>
+          <li className="nav-item">
+            <a
+              href="https://forms.gle/9n18bn57fRRFCnYE9"
+              target="_blank"
+              className="nav-link px-2 "
+              noreferrer
+              noopener
+            >
+              Survey Kepuasan
+            </a>
+          </li>
+          <li className="nav-item">
+            <a
+              href={sop}
+              target="_blank"
+              className="nav-link px-2 "
+              noreferrer
+              noopener
+            >
+              Petunjuk Pengoperasian
             </a>
           </li>
         </ul>
