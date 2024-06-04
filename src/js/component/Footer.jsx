@@ -16,17 +16,29 @@ const Footer = () => {
 
         <ul className="nav col-md-3 justify-content-center">
           <li className="nav-item">
-            <a href="#" className="nav-link px-2 text-body-secondary">
+            <a
+              href="https://wa.me/62816644000"
+              className="nav-link px-2 text-body-secondary"
+              target="_blank"
+            >
               <img src={whatssapp} alt="whatsapp" width={24} height={24} />
             </a>
           </li>
           <li className="nav-item">
-            <a href="#" className="nav-link px-2 text-body-secondary">
+            <a
+              href="mailto:dinperkim.pekalongankota@gmail.com."
+              className="nav-link px-2 text-body-secondary"
+              target="_blank"
+            >
               <img src={email} alt="whatsapp" width={28} height={28} />
             </a>
           </li>
           <li className="nav-item">
-            <a href="#" className="nav-link px-2 text-body-secondary">
+            <a
+              href="https://www.instagram.com/dinperkim.pekalongankota/"
+              className="nav-link px-2 text-body-secondary"
+              target="_blank"
+            >
               <img src={instagram} alt="whatsapp" width={24} height={24} />
             </a>
           </li>
@@ -43,8 +55,12 @@ const Footer = () => {
             </a>
           </li>
           <li className="nav-item">
-            <a href="#" className="nav-link px-2 ">
-              Tutorial
+            <a
+              href="https://youtu.be/Y_W6owMw_00"
+              target="_blank"
+              className="nav-link px-2 "
+            >
+              Dokumentasi
             </a>
           </li>
           <li className="nav-item">
