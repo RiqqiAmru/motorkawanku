@@ -60,7 +60,7 @@ const Footer = () => {
               target="_blank"
               className="nav-link px-2 "
             >
-              Dokumentasi
+              Video Panduan
             </a>
           </li>
           <li className="nav-item">
@@ -68,20 +68,12 @@ const Footer = () => {
               href="https://forms.gle/9n18bn57fRRFCnYE9"
               target="_blank"
               className="nav-link px-2 "
-              noreferrer
-              noopener
             >
               Survey Kepuasan
             </a>
           </li>
           <li className="nav-item">
-            <a
-              href={sop}
-              target="_blank"
-              className="nav-link px-2 "
-              noreferrer
-              noopener
-            >
+            <a href={sop} target="_blank" className="nav-link px-2 ">
               Petunjuk Pengoperasian
             </a>
           </li>

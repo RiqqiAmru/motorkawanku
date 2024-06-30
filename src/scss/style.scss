@@ -32,3 +32,15 @@
   opacity: 0.8;
   cursor: pointer;
 }
+
+// header
+#b-override .load {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: green;
+}

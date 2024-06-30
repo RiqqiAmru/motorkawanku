@@ -86,12 +86,13 @@ const App = () => {
     const investasiKawasan = semuaInvestasi.filter(
       (inv) => inv.idKawasan === k.id && inv.tahun === tahun
     );
+
     if (tahun === new Date().getFullYear()) {
       // kumuh akhir
-      kumuhAkhir = hitungKumuhRtAkhir(investasiKawasan, dataKumuh, k);
       bukaDatabase().then((db) => {
         getDataInvestasi(db).then((data) => {
           const investasi = data.filter((inv) => inv.idKawasan === k.id);
+          kumuhAkhir = hitungKumuhRtAkhir(investasi, dataKumuh, k);
           setKumuhTerpilih({
             k,
             semuaRT,
@@ -131,13 +132,13 @@ const App = () => {
     );
     if (tahun === new Date().getFullYear()) {
       // kumuh Akhir
-      kumuhAkhir = hitungKumuhRtAkhir(investasiRT, dataKumuh, r);
       // cari investasi dari indexedDB
       bukaDatabase().then((db) => {
         getDataInvestasi(db).then((data) => {
           const investasi = data.filter(
             (inv) => inv.idRTRW === r.id && inv.idKawasan === r.kawasan
           );
+          kumuhAkhir = hitungKumuhRtAkhir(investasi, dataKumuh, r);
           setKumuhTerpilih({
             r,
             semuaRT: kumuhTerpilih.semuaRT,

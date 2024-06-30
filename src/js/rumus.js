@@ -41,18 +41,19 @@ export function hitungKumuhRtAkhir(
   // map investasi menjadi total volume per kriteria
   let dataVolume = [];
   if (investasi.length > 0) {
+    console.log(investasi);
     investasi.forEach((element) => {
-      if (!dataVolume[element.kriteria]) {
-        dataVolume[element.kriteria] = parseFloat(element.volume) || 0;
+      if (!dataVolume[element.idKriteria]) {
+        dataVolume[element.idKriteria] = parseFloat(element.volume) || 0;
       } else {
-        dataVolume[element.kriteria] += parseFloat(element.volume) || 0;
+        dataVolume[element.idKriteria] += parseFloat(element.volume) || 0;
       }
     });
   }
+  console.log(dataVolume);
 
   // loop per id kriteria
   kumuhRTAkhir["totalNilai"] = 0;
-
   let rata = [];
   let totalRata = [];
   kriteriaid.forEach((id) => {
