@@ -4,9 +4,9 @@ import "../scss/style.scss";
 import { bukaDatabase } from "./indexedDB";
 import logo from "../../public/kotaPekalongan.png";
 import img2 from "../../public/pekalongan-night.jpg";
-import favicon from "../../public/favicon.ico";
-
 import App from "./component/App";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 
 const app = document.getElementById("app");
 const root = createRoot(app);
@@ -15,7 +15,11 @@ const learn = document.getElementById("learn-more");
 learn.addEventListener("click", () => {
   bukaDatabase()
     .then((db) => {
-      root.render(<App />);
+      root.render(
+        <QueryClientProvider client={new QueryClient()}>
+          <App />
+        </QueryClientProvider>
+      );
     })
     .catch((e) => console.error("error : ", e));
 });
@@ -28,5 +32,3 @@ const cover = document.getElementById("cover");
 cover.style.backgroundImage = `url(${img2})`;
 cover.style.backgroundSize = "cover";
 cover.style.backgroundPosition = "center";
-
-const faviconLink = document.getElementById("favicon");

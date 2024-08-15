@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from "react";
-import { kegiatanInvestasi } from "../loadData";
+// import { kegiatanInvestasi } from "../loadData";
 import {
   bukaDatabase,
   hapusDataInvestasi,

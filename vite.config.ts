@@ -31,6 +31,8 @@ export default defineConfig({
   ],
   build: {
     rollupOptions: {
+      // exclude loadData.js
+      external: ["./loadData.js"],
       input: {
         main: resolve(__dirname, "src/index.html"),
         about: resolve(__dirname, "src/about.html"),

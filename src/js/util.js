@@ -62,6 +62,8 @@ function stringToFloat(string) {
   return parseFloat(string) || 0;
 }
 
+const API_URL = "http://127.0.0.1:8000/api";
+
 export {
   dataToElement,
   decimaltoPercent,
@@ -69,4 +71,5 @@ export {
   showToast,
   formatRupiah,
   pembulatanDesimal,
+  API_URL,
 };

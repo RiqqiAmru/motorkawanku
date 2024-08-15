@@ -5,16 +5,17 @@ import React, {
   createContext,
   useEffect,
 } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { getDataInvestasi, bukaDatabase } from "../indexedDB";
-import {
-  kecamatan as kawasan,
-  kota,
-  rtrw,
-  kumuhKawasan,
-  kumuhRT,
-  latlng,
-  semuaInvestasi,
-} from "../loadData";
+// import {
+//   kecamatan as kawasan,
+//   kota,
+//   rtrw,
+//   kumuhKawasan,
+//   kumuhRT,
+//   latlng,
+//   semuaInvestasi,
+// } from "../loadData";
 import Title from "./Title";
 import Card from "./Card";
 import Header from "./Header";
@@ -25,13 +26,49 @@ import ModalTambahKegiatan from "./ModalTambahKegiatan";
 import AlertToast from "./AlertToast";
 import ModalHapusData from "./ModalHapusData";
 import Footer from "./Footer";
+import { API_URL } from "../util";
+
+const fetchData = async () => {
+  const response = await fetch(API_URL);
+  return response.json();
+};
 
 const DataKumuh = createContext(null);
 
 const App = () => {
-  const [kumuhTerpilih, setKumuhTerpilih] = useState({ tahun: 2024 });
+  const { data: kota, status } = useQuery({
+    queryKey: ["kota"],
+    queryFn: fetchData,
+  });
+  const [kumuhTerpilih, setKumuhTerpilih] = useState({
+    tahun: 2024,
+    k: { id: 0 },
+  });
+  const { kawasan, statusKawasan } = useQuery({
+    queryKey: [
+      "kawasan",
+      { id: kumuhTerpilih.k.id, tahun: kumuhTerpilih.tahun },
+    ],
+    queryFn: async () => {
+      const response = fetch(
+        API_URL + `/kawasan/${kumuhTerpilih.k.id}/${kumuhTerpilih.tahun - 1}`
+      );
+
+      return response.json();
+    },
+    enabled: kumuhTerpilih.k.id !== 0,
+  });
   const [coordinate, setCoordinate] = useState([]);
 
+  if (status === "pending") {
+    return <div>Loading...</div>;
+  }
+  if (status === "error") {
+    return <div>Error fetching data</div>;
+  }
+  if (statusKawasan === "pending") {
+    return <div>Loading...</div>;
+  }
   return (
     <StrictMode>
       <Suspense fallback={<div>Loading...</div>}>
@@ -41,8 +78,8 @@ const App = () => {
             <Title></Title>
             <Card>
               <Header
-                kota={kota}
-                kawasan={kawasan}
+                kota={kota.kota}
+                kawasan={kota.kawasan}
                 loadKawasanKumuh={LoadKawasanKumuh}
                 loadRTKumuh={loadRTKumuh}
                 kawasanKumuh={kumuhTerpilih}
@@ -75,47 +112,50 @@ const App = () => {
   }
 
   function LoadKawasanKumuh(k, tahun) {
-    const semuaRT = rtrw.filter((r) => r.kawasan === k.id);
-    let kumuhAkhir = kumuhKawasan.find(
-      (kumuh) => kumuh.kawasan === k.id && kumuh.tahun === tahun
-    );
-    const dataKumuh = kumuhKawasan.find(
-      (kumuh) => kumuh.kawasan === k.id && kumuh.tahun === tahun - 1
-    );
-    // investasi
-    const investasiKawasan = semuaInvestasi.filter(
-      (inv) => inv.idKawasan === k.id && inv.tahun === tahun
-    );
-
-    if (tahun === new Date().getFullYear()) {
-      // kumuh akhir
-      bukaDatabase().then((db) => {
-        getDataInvestasi(db).then((data) => {
-          const investasi = data.filter((inv) => inv.idKawasan === k.id);
-          kumuhAkhir = hitungKumuhRtAkhir(investasi, dataKumuh, k);
-          setKumuhTerpilih({
-            k,
-            semuaRT,
-            kumuh: "k",
-            dataKumuh,
-            kumuhAkhir,
-            tahun,
-            investasi,
+    // ganti k, semuaRT, dataKumuh, investasiKawasan
+    setKumuhTerpilih({ ...kumuhTerpilih, k: k, tahun: tahun });
+    // const semuaRT = rtrw.filter((r) => r.kawasan === k.id);
+    // let kumuhAkhir = kumuhKawasan.find(
+    //   (kumuh) => kumuh.kawasan === k.id && kumuh.tahun === tahun
+    // );
+    // const dataKumuh = kumuhKawasan.find(
+    //   (kumuh) => kumuh.kawasan === k.id && kumuh.tahun === tahun - 1
+    // );
+    // // investasi
+    // const investasiKawasan = semuaInvestasi.filter(
+    //   (inv) => inv.idKawasan === k.id && inv.tahun === tahun
+    // );
+    if (statusKawasan === "success") {
+      if (tahun === new Date().getFullYear()) {
+        // kumuh akhir
+        bukaDatabase().then((db) => {
+          getDataInvestasi(db).then((data) => {
+            const investasi = data.filter((inv) => inv.idKawasan === k.id);
+            kumuhAkhir = hitungKumuhRtAkhir(investasi, kawasan.dataKumuh, k);
+            setKumuhTerpilih({
+              k: kawasan.kawasan,
+              semuaRT: kawasan.rtrw,
+              kumuh: "k",
+              dataKumuh: kawasan.dataKumuh,
+              kumuhAkhir,
+              tahun,
+              investasi,
+            });
           });
         });
-      });
-    } else {
-      setKumuhTerpilih({
-        k,
-        semuaRT,
-        kumuh: "k",
-        dataKumuh,
-        kumuhAkhir,
-        tahun,
-        investasi: investasiKawasan,
-      });
+      } else {
+        setKumuhTerpilih({
+          k: kawasan.kawasan,
+          semuaRT: kawasan.rtrw,
+          kumuh: "k",
+          dataKumuh: kawasan.dataKumuh,
+          kumuhAkhir: kawasan.kumuhAkhir,
+          tahun,
+          investasi: kawasan.investasi,
+        });
+      }
     }
-    cariCoordinate(k.kawasan, "", dataKumuh.tingkatKekumuhan, tahun);
+    // cariCoordinate(rtrw.kawasan, "", rtrw.dataKumuh.tingkatKekumuhan, tahun);
   }
   function loadRTKumuh(r, tahun) {
     const dataKumuh = kumuhRT.find(
