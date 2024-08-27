@@ -16,6 +16,7 @@ import { getDataInvestasi, bukaDatabase } from "../indexedDB";
 //   latlng,
 //   semuaInvestasi,
 // } from "../loadData";
+import { fakeFetch } from "../loadData";
 import Title from "./Title";
 import Card from "./Card";
 import Header from "./Header";
@@ -28,9 +29,11 @@ import ModalHapusData from "./ModalHapusData";
 import Footer from "./Footer";
 import { API_URL } from "../util";
 
-const fetchData = async () => {
-  const response = await fetch(API_URL);
-  return response.json();
+const fetchData = async (param = false) => {
+  // change for api if already hosted
+  // const response = await fetch(API_URL + param);
+  // return response.json();
+  return await fakeFetch(param);
 };
 
 const DataKumuh = createContext(null);
@@ -38,7 +41,7 @@ const DataKumuh = createContext(null);
 const App = () => {
   const { data: kota, status } = useQuery({
     queryKey: ["kota"],
-    queryFn: fetchData,
+    queryFn: fetchData(),
   });
   const [kumuhTerpilih, setKumuhTerpilih] = useState({
     tahun: 2024,
@@ -49,13 +52,9 @@ const App = () => {
       "kawasan",
       { id: kumuhTerpilih.k.id, tahun: kumuhTerpilih.tahun },
     ],
-    queryFn: async () => {
-      const response = fetch(
-        API_URL + `/kawasan/${kumuhTerpilih.k.id}/${kumuhTerpilih.tahun - 1}`
-      );
-
-      return response.json();
-    },
+    queryFn: fetchData(
+      `/kawasan/${kumuhTerpilih.k.id}/${kumuhTerpilih.tahun - 1}`
+    ),
     enabled: kumuhTerpilih.k.id !== 0,
   });
   const [coordinate, setCoordinate] = useState([]);

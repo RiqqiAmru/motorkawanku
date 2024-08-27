@@ -1,13 +1,13 @@
-// // import { read, utils } from "xlsx";
-// // import b64 from "../../data/pekalongan.xlsx?b64";
-// // import aspek from "../../data/kriteria.json";
-// // import latlng from "../../data/latlng.json";
+import { read, utils } from "xlsx";
+import b64 from "../../data/pekalongan.xlsx?b64";
+import aspek from "../../data/kriteria.json";
+import latlng from "../../data/latlng.json";
 
 // /* parse workbook and pull data from the first worksheet */
-// let wb = read(b64, { type: "base64" });
-// let wsname = wb.SheetNames[0];
-// let kota = utils.sheet_to_json(wb.Sheets[wsname]);
-// kota = kota[0];
+let wb = read(b64, { type: "base64" });
+let wsname = wb.SheetNames[0];
+let kota = utils.sheet_to_json(wb.Sheets[wsname]);
+kota = kota[0];
 
 // wb = read(b64, { type: "base64" });
 // wsname = wb.SheetNames[1];
@@ -44,3 +44,12 @@
 //   latlng,
 //   semuaInvestasi,
 // };
+
+// buat fake api untuk memudahkan development 1 1
+async function fakeFetch(param = false) {
+  if (!param) {
+    return kota;
+  }
+  return param;
+}
+export { fakeFetch };
