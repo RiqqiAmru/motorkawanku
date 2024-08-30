@@ -1,5 +1,6 @@
 import { createRoot } from "react-dom/client";
 import React from "react";
+import "../../public/favicon.ico";
 import "../scss/style.scss";
 import { bukaDatabase } from "./indexedDB";
 import logo from "../../public/kotaPekalongan.png";

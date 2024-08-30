@@ -1,10 +1,4 @@
-import React, {
-  Suspense,
-  StrictMode,
-  useState,
-  createContext,
-  useEffect,
-} from "react";
+import React, { Suspense, StrictMode, useState, createContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getDataInvestasi, bukaDatabase } from "../indexedDB";
 // import {
@@ -27,21 +21,16 @@ import ModalTambahKegiatan from "./ModalTambahKegiatan";
 import AlertToast from "./AlertToast";
 import ModalHapusData from "./ModalHapusData";
 import Footer from "./Footer";
-import { API_URL } from "../util";
-
-const fetchData = async (param = false) => {
-  // change for api if already hosted
-  // const response = await fetch(API_URL + param);
-  // return response.json();
-  return await fakeFetch(param);
-};
 
 const DataKumuh = createContext(null);
 
 const App = () => {
   const { data: kota, status } = useQuery({
     queryKey: ["kota"],
-    queryFn: fetchData(),
+    queryFn: async () => {
+      const data = await fakeFetch();
+      return data;
+    },
   });
   const [kumuhTerpilih, setKumuhTerpilih] = useState({
     tahun: 2024,
@@ -52,9 +41,11 @@ const App = () => {
       "kawasan",
       { id: kumuhTerpilih.k.id, tahun: kumuhTerpilih.tahun },
     ],
-    queryFn: fetchData(
-      `/kawasan/${kumuhTerpilih.k.id}/${kumuhTerpilih.tahun - 1}`
-    ),
+    queryFn: async () => {
+      return await fakeFetch(
+        `/kawasan/${kumuhTerpilih.k.id}/${kumuhTerpilih.tahun - 1}`
+      );
+    },
     enabled: kumuhTerpilih.k.id !== 0,
   });
   const [coordinate, setCoordinate] = useState([]);
@@ -63,7 +54,7 @@ const App = () => {
     return <div>Loading...</div>;
   }
   if (status === "error") {
-    return <div>Error fetching data</div>;
+    return <div>Error fetching data Kota</div>;
   }
   if (statusKawasan === "pending") {
     return <div>Loading...</div>;
@@ -77,7 +68,7 @@ const App = () => {
             <Title></Title>
             <Card>
               <Header
-                kota={kota.kota}
+                kota={kota}
                 kawasan={kota.kawasan}
                 loadKawasanKumuh={LoadKawasanKumuh}
                 loadRTKumuh={loadRTKumuh}

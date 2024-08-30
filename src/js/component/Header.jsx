@@ -1,5 +1,5 @@
 import React from "react";
-
+import Proptypes from "prop-types";
 const Header = ({
   kota,
   kawasan,
@@ -67,11 +67,11 @@ const Header = ({
                   onChange={handleOnChangeKawasan}
                 >
                   <option value="0">Pilih Kawasan</option>
-                  {kawasan.map((kec, i) => (
+                  {/* {kawasan.map((kec, i) => (
                     <option key={"kel" + i} value={kec.id}>
                       {kec.kawasan}
                     </option>
-                  ))}
+                  ))} */}
                 </select>
               </td>
             </tr>
@@ -148,4 +148,7 @@ function SemuaTahun({ handleTahun, tahun }) {
   ));
 }
 
+Header.propTypes = {
+  kota: Proptypes.string.isRequired,
+};
 export default Header;
