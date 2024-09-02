@@ -1,43 +1,95 @@
 import React from "react";
 import Proptypes from "prop-types";
 const Header = ({
+  status,
+  statusHeaderKawasan,
+  statusHeaderRT,
   kota,
-  kawasan,
+  headerKawasan,
+  headerRT,
   loadKawasanKumuh,
   loadRTKumuh,
-  kawasanKumuh,
   handleTahun,
   tahun,
 }) => {
-  let luasVerifikasi = null;
+  let luasVerifikasi = 0;
   let jumlahBangunan = 0;
   let jumlahPenduduk = 0;
   let jumlahKK = 0;
-  if (kawasanKumuh.kumuh === "k") {
-    luasVerifikasi = kawasanKumuh.k.luasVerifikasi.toFixed(2);
-    jumlahBangunan = kawasanKumuh.k.jumlahBangunan;
-    jumlahPenduduk = kawasanKumuh.k.jumlahPenduduk;
-    jumlahKK = kawasanKumuh.k.jumlahKK;
-  } else if (kawasanKumuh.kumuh === "r") {
-    luasVerifikasi = kawasanKumuh.r.luasVerifikasi.toFixed(2);
-    jumlahBangunan = kawasanKumuh.r.jumlahBangunan;
-    jumlahPenduduk = kawasanKumuh.r.jumlahPenduduk;
-    jumlahKK = kawasanKumuh.r.jumlahKK;
-  }
+  // if (kawasanKumuh.kumuh === "k") {
+  //   luasVerifikasi = kawasanKumuh.k.luasVerifikasi.toFixed(2);
+  //   jumlahBangunan = kawasanKumuh.k.jumlahBangunan;
+  //   jumlahPenduduk = kawasanKumuh.k.jumlahPenduduk;
+  //   jumlahKK = kawasanKumuh.k.jumlahKK;
+  // } else if (kawasanKumuh.kumuh === "r") {
+  //   luasVerifikasi = kawasanKumuh.r.luasVerifikasi.toFixed(2);
+  //   jumlahBangunan = kawasanKumuh.r.jumlahBangunan;
+  //   jumlahPenduduk = kawasanKumuh.r.jumlahPenduduk;
+  //   jumlahKK = kawasanKumuh.r.jumlahKK;
+  // }
 
   function handleOnChangeKawasan(e) {
-    if (parseInt(e.target.value) === 0) {
-      return;
-    }
-    const k = kawasan.find((k) => k.id === parseInt(e.target.value));
+    let k = { id: parseInt(e.target.value) };
     loadKawasanKumuh(k, tahun);
   }
   function handleOnChangeRT(e) {
-    if (parseInt(e.target.value) === 0) return;
-    const r = kawasanKumuh.semuaRT.find(
-      (r) => r.id === parseInt(e.target.value)
-    );
+    let r = { id: parseInt(e.target.value) };
     loadRTKumuh(r, tahun);
+  }
+  let provinsi = "loading ...";
+  let kabupaten = "loading ...";
+  let kelurahan = "loading ...";
+  if (status == "error") {
+    provinsi = "error fetching data ";
+    kabupaten = "error fetching data ";
+    kelurahan = "error fetching data ";
+  } else if (status == "success") {
+    provinsi = kota.provinsi;
+    kabupaten = kota.kota;
+    kelurahan = (
+      <select
+        className="form-select"
+        aria-label="Default select example"
+        onChange={handleOnChangeKawasan}
+      >
+        <option value="0">Pilih Kawasan</option>
+        {kota.kec.map((kec, i) => (
+          <option key={"kel" + i} value={kec.id}>
+            {kec.kawasan}
+          </option>
+        ))}
+      </select>
+    );
+  }
+
+  let wilayah = "";
+  let rt = "";
+  if (statusHeaderKawasan == "error") {
+    wilayah = "error fetching data ";
+    rt = "error fetching data";
+  } else if (statusHeaderKawasan == "success") {
+    wilayah = headerKawasan.wilayah;
+    rt = (
+      <select className="form-select" onChange={handleOnChangeRT}>
+        <option value={0}>Pilih RT/RW</option>
+        {headerKawasan.rt.map((r, i) => (
+          <option key={"rtrw" + i} value={r.id}>
+            {r.rtrw}
+          </option>
+        ))}
+      </select>
+    );
+    if (statusHeaderRT == "success") {
+      luasVerifikasi = headerRT.luasVerifikasi.toFixed(2);
+      jumlahBangunan = headerRT.jumlahBangunan;
+      jumlahKK = headerRT.jumlahKK;
+      jumlahPenduduk = headerRT.jumlahPenduduk;
+    } else {
+      luasVerifikasi = headerKawasan.luasVerifikasi.toFixed(2);
+      jumlahBangunan = headerKawasan.jumlahBangunan;
+      jumlahKK = headerKawasan.jumlahKK;
+      jumlahPenduduk = headerKawasan.jumlahPenduduk;
+    }
   }
 
   return (
@@ -48,46 +100,23 @@ const Header = ({
           <tbody>
             <tr>
               <th>Provinsi</th>
-              <td>{kota.provinsi}</td>
+              <td>{provinsi}</td>
             </tr>
             <tr>
               <th>Kabupaten/Kota</th>
-              <td>{kota.kota}</td>
+              <td>{kabupaten}</td>
             </tr>
             <tr>
               <th>Kecamatan</th>
-              <td>{kawasanKumuh.k && kawasanKumuh.k.wilayah}</td>
+              <td>{wilayah}</td>
             </tr>
             <tr>
               <th>Kelurahan</th>
-              <td>
-                <select
-                  className="form-select"
-                  aria-label="Default select example"
-                  onChange={handleOnChangeKawasan}
-                >
-                  <option value="0">Pilih Kawasan</option>
-                  {/* {kawasan.map((kec, i) => (
-                    <option key={"kel" + i} value={kec.id}>
-                      {kec.kawasan}
-                    </option>
-                  ))} */}
-                </select>
-              </td>
+              <td>{kelurahan}</td>
             </tr>
             <tr>
               <th>Wilayah RT/RW</th>
-              <td>
-                <select className="form-select" onChange={handleOnChangeRT}>
-                  <option value={0}>Pilih RT/RW</option>
-                  {kawasanKumuh.semuaRT &&
-                    kawasanKumuh.semuaRT.map((r, i) => (
-                      <option key={"rtrw" + i} value={r.id}>
-                        {r.rtrw}
-                      </option>
-                    ))}
-                </select>
-              </td>
+              <td>{rt}</td>
             </tr>
           </tbody>
         </table>
@@ -149,6 +178,16 @@ function SemuaTahun({ handleTahun, tahun }) {
 }
 
 Header.propTypes = {
-  kota: Proptypes.string.isRequired,
+  kota: Proptypes.object.isRequired,
+  headerKawasan: Proptypes.object,
+  headerRT: Proptypes.object,
+  kawasanKumuh: Proptypes.object.isRequired,
+  status: Proptypes.string.isRequired,
+  statusHeaderKawasan: Proptypes.string,
+  statusHeaderRT: Proptypes.string,
+  loadKawasanKumuh: Proptypes.func,
+  loadRTKumuh: Proptypes.func,
+  handleTahun: Proptypes.func,
+  tahun: Proptypes.number,
 };
 export default Header;

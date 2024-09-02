@@ -10,9 +10,10 @@ kota = kota[0];
 wb = read(b64, { type: "base64" });
 wsname = wb.SheetNames[1];
 let kecamatan = utils.sheet_to_json(wb.Sheets[wsname]);
-// wb = read(b64, { type: "base64" });
-// wsname = wb.SheetNames[2];
-// let rtrw = utils.sheet_to_json(wb.Sheets[wsname]);
+
+wb = read(b64, { type: "base64" });
+wsname = wb.SheetNames[2];
+let rtrw = utils.sheet_to_json(wb.Sheets[wsname]);
 
 // wb = read(b64, { type: "base64" });
 // wsname = wb.SheetNames[3];
@@ -43,13 +44,28 @@ let kecamatan = utils.sheet_to_json(wb.Sheets[wsname]);
 // };
 
 // buat fake api untuk memudahkan development 1 1
-async function fakeFetch(param = false) {
+async function fakeFetch(param = false, id = 0, tahun = 0) {
   if (!param) {
     const kec = kecamatan.map(({ id, wilayah, kawasan }) => {
       return { wilayah, kawasan, id };
     });
-
     return Promise.resolve({ ...kota, kec });
+  } else {
+    // pecah url berdasarkan /
+    // url/kawasan/id_kawasan/tahun
+    if (tahun == 0 && param == "kawasan" && id) {
+      const kec = kecamatan.find((k) => k.id == id);
+      const rt = rtrw
+        .filter((rt) => rt.kawasan == id)
+        .map(({ id, rtrw }) => {
+          return { id, rtrw };
+        });
+      return { ...kec, rt };
+    } else if (tahun == 0 && id && param == "rt") {
+      const rt = rtrw.find((r) => r.id == id);
+      return rt;
+    }
+    // fetch tabel kawasan
   }
   return Promise.reject("undefined");
 }

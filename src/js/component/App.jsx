@@ -25,6 +25,10 @@ import Footer from "./Footer";
 const DataKumuh = createContext(null);
 
 const App = () => {
+  const [kumuhTerpilih, setKumuhTerpilih] = useState({
+    tahun: 2024,
+    k: { id: 0 },
+  });
   const { data: kota, status } = useQuery({
     queryKey: ["kota"],
     queryFn: async () => {
@@ -32,33 +36,25 @@ const App = () => {
       return data;
     },
   });
-  const [kumuhTerpilih, setKumuhTerpilih] = useState({
-    tahun: 2024,
-    k: { id: 0 },
-  });
-  const { kawasan, statusKawasan } = useQuery({
-    queryKey: [
-      "kawasan",
-      { id: kumuhTerpilih.k.id, tahun: kumuhTerpilih.tahun },
-    ],
+  const { data: headerKawasan, status: statusHeaderKawasan } = useQuery({
+    queryKey: ["kawasan", { id: kumuhTerpilih.k.id }],
     queryFn: async () => {
-      return await fakeFetch(
-        `/kawasan/${kumuhTerpilih.k.id}/${kumuhTerpilih.tahun - 1}`
-      );
+      const data = await fakeFetch("kawasan", kumuhTerpilih.k.id);
+      return data;
     },
     enabled: kumuhTerpilih.k.id !== 0,
   });
+  const { data: headerRT, status: statusHeaderRT } = useQuery({
+    queryKey: ["rt", { id: kumuhTerpilih?.r?.id }],
+    queryFn: async () => {
+      const data = await fakeFetch("rt", kumuhTerpilih.r.id);
+      return data;
+    },
+    enabled: kumuhTerpilih?.r?.id !== 0,
+  });
+
   const [coordinate, setCoordinate] = useState([]);
 
-  if (status === "pending") {
-    return <div>Loading...</div>;
-  }
-  if (status === "error") {
-    return <div>Error fetching data Kota</div>;
-  }
-  if (statusKawasan === "pending") {
-    return <div>Loading...</div>;
-  }
   return (
     <StrictMode>
       <Suspense fallback={<div>Loading...</div>}>
@@ -68,8 +64,14 @@ const App = () => {
             <Title></Title>
             <Card>
               <Header
-                kota={kota}
-                kawasan={kota.kawasan}
+                status={status}
+                kota={status == "success" ? kota : {}}
+                statusHeaderKawasan={statusHeaderKawasan}
+                headerKawasan={
+                  statusHeaderKawasan == "success" ? headerKawasan : {}
+                }
+                statusHeaderRT={statusHeaderRT}
+                headerRT={statusHeaderRT == "success" ? headerRT : {}}
                 loadKawasanKumuh={LoadKawasanKumuh}
                 loadRTKumuh={loadRTKumuh}
                 kawasanKumuh={kumuhTerpilih}
@@ -102,104 +104,93 @@ const App = () => {
   }
 
   function LoadKawasanKumuh(k, tahun) {
-    // ganti k, semuaRT, dataKumuh, investasiKawasan
-    setKumuhTerpilih({ ...kumuhTerpilih, k: k, tahun: tahun });
-    // const semuaRT = rtrw.filter((r) => r.kawasan === k.id);
-    // let kumuhAkhir = kumuhKawasan.find(
-    //   (kumuh) => kumuh.kawasan === k.id && kumuh.tahun === tahun
-    // );
-    // const dataKumuh = kumuhKawasan.find(
-    //   (kumuh) => kumuh.kawasan === k.id && kumuh.tahun === tahun - 1
-    // );
-    // // investasi
-    // const investasiKawasan = semuaInvestasi.filter(
-    //   (inv) => inv.idKawasan === k.id && inv.tahun === tahun
-    // );
-    if (statusKawasan === "success") {
-      if (tahun === new Date().getFullYear()) {
-        // kumuh akhir
-        bukaDatabase().then((db) => {
-          getDataInvestasi(db).then((data) => {
-            const investasi = data.filter((inv) => inv.idKawasan === k.id);
-            kumuhAkhir = hitungKumuhRtAkhir(investasi, kawasan.dataKumuh, k);
-            setKumuhTerpilih({
-              k: kawasan.kawasan,
-              semuaRT: kawasan.rtrw,
-              kumuh: "k",
-              dataKumuh: kawasan.dataKumuh,
-              kumuhAkhir,
-              tahun,
-              investasi,
-            });
-          });
-        });
-      } else {
-        setKumuhTerpilih({
-          k: kawasan.kawasan,
-          semuaRT: kawasan.rtrw,
-          kumuh: "k",
-          dataKumuh: kawasan.dataKumuh,
-          kumuhAkhir: kawasan.kumuhAkhir,
-          tahun,
-          investasi: kawasan.investasi,
-        });
-      }
+    setKumuhTerpilih({ ...kumuhTerpilih, k: k, tahun: tahun, r: { id: 0 } });
+
+    if (statusHeaderKawasan === "success") {
+      // if (tahun === new Date().getFullYear()) {
+      //   // kumuh akhir
+      //   bukaDatabase().then((db) => {
+      //     getDataInvestasi(db).then((data) => {
+      //       const investasi = data.filter((inv) => inv.idKawasan === k.id);
+      //       kumuhAkhir = hitungKumuhRtAkhir(investasi, kawasan.dataKumuh, k);
+      //       setKumuhTerpilih({
+      //         k: kawasan.kawasan,
+      //         semuaRT: kawasan.rtrw,
+      //         kumuh: "k",
+      //         dataKumuh: kawasan.dataKumuh,
+      //         kumuhAkhir,
+      //         tahun,
+      //         investasi,
+      //       });
+      //     });
+      //   });
+      // } else {
+      //   setKumuhTerpilih({
+      //     k: kawasan.kawasan,
+      //     semuaRT: kawasan.rtrw,
+      //     kumuh: "k",
+      //     dataKumuh: kawasan.dataKumuh,
+      //     kumuhAkhir: kawasan.kumuhAkhir,
+      //     tahun,
+      //     investasi: kawasan.investasi,
+      //   });
+      // }
     }
     // cariCoordinate(rtrw.kawasan, "", rtrw.dataKumuh.tingkatKekumuhan, tahun);
   }
   function loadRTKumuh(r, tahun) {
-    const dataKumuh = kumuhRT.find(
-      (kumuh) => kumuh.rt === r.id && kumuh.tahun === tahun - 1
-    );
-    let kumuhAkhir = kumuhRT.find(
-      (kumuh) => kumuh.rt === r.id && kumuh.tahun === tahun
-    );
-    const investasiRT = semuaInvestasi.filter(
-      (inv) =>
-        inv.idRTRW === r.id &&
-        inv.tahun === tahun &&
-        inv.idKawasan === r.kawasan
-    );
-    if (tahun === new Date().getFullYear()) {
-      // kumuh Akhir
-      // cari investasi dari indexedDB
-      bukaDatabase().then((db) => {
-        getDataInvestasi(db).then((data) => {
-          const investasi = data.filter(
-            (inv) => inv.idRTRW === r.id && inv.idKawasan === r.kawasan
-          );
-          kumuhAkhir = hitungKumuhRtAkhir(investasi, dataKumuh, r);
-          setKumuhTerpilih({
-            r,
-            semuaRT: kumuhTerpilih.semuaRT,
-            k: kumuhTerpilih.k,
-            kumuh: "r",
-            dataKumuh,
-            kumuhAkhir,
-            tahun,
-            investasi,
-          });
-        });
-      });
-    } else {
-      setKumuhTerpilih({
-        r,
-        semuaRT: kumuhTerpilih.semuaRT,
-        k: kumuhTerpilih.k,
-        kumuh: "r",
-        dataKumuh,
-        kumuhAkhir,
-        tahun,
-        investasi: investasiRT,
-      });
-    }
-
-    cariCoordinate(
-      kumuhTerpilih.k.kawasan,
-      r.rtrw,
-      dataKumuh.tingkatKekumuhan,
-      tahun
-    );
+    setKumuhTerpilih({ ...kumuhTerpilih, r, tahun });
+    // const dataKumuh = kumuhRT.find(
+    //   (kumuh) => kumuh.rt === r.id && kumuh.tahun === tahun - 1
+    // );
+    // let kumuhAkhir = kumuhRT.find(
+    //   (kumuh) => kumuh.rt === r.id && kumuh.tahun === tahun
+    // );
+    // const investasiRT = semuaInvestasi.filter(
+    //   (inv) =>
+    //     inv.idRTRW === r.id &&
+    //     inv.tahun === tahun &&
+    //     inv.idKawasan === r.kawasan
+    // );
+    // if (tahun === new Date().getFullYear()) {
+    //   // kumuh Akhir
+    //   // cari investasi dari indexedDB
+    //   bukaDatabase().then((db) => {
+    //     getDataInvestasi(db).then((data) => {
+    //       const investasi = data.filter(
+    //         (inv) => inv.idRTRW === r.id && inv.idKawasan === r.kawasan
+    //       );
+    //       kumuhAkhir = hitungKumuhRtAkhir(investasi, dataKumuh, r);
+    //       setKumuhTerpilih({
+    //         r,
+    //         semuaRT: kumuhTerpilih.semuaRT,
+    //         k: kumuhTerpilih.k,
+    //         kumuh: "r",
+    //         dataKumuh,
+    //         kumuhAkhir,
+    //         tahun,
+    //         investasi,
+    //       });
+    //     });
+    //   });
+    // } else {
+    //   setKumuhTerpilih({
+    //     r,
+    //     semuaRT: kumuhTerpilih.semuaRT,
+    //     k: kumuhTerpilih.k,
+    //     kumuh: "r",
+    //     dataKumuh,
+    //     kumuhAkhir,
+    //     tahun,
+    //     investasi: investasiRT,
+    //   });
+    // }
+    // cariCoordinate(
+    //   kumuhTerpilih.k.kawasan,
+    //   r.rtrw,
+    //   dataKumuh.tingkatKekumuhan,
+    //   tahun
+    // );
   }
 
   function cariCoordinate(kelurahan, rtrw = "", tingkatKekumuhan, tahun) {
